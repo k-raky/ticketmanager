@@ -1,9 +1,11 @@
 <?php
 
-
+use App\Http\Controllers\Admin\CommandesController;
 use Rawilk\Printing\Facades;
 
 use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\Facades\Route;
+
 
 
 Route::redirect('/', '/login');
@@ -26,6 +28,7 @@ Route::get('/stats','App\Http\Controllers\Admin\StatsController@index')->name('a
 
 Route::get('/print',[\App\Http\Controllers\makepdfController::class,'createpdf'])->name('print');
 
+Route::get('/variantA', [CommandesController::class, 'variantA']);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::redirect('/', '/login')->name('home');
