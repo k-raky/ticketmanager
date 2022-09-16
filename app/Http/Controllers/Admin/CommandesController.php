@@ -59,11 +59,6 @@ class CommandesController extends Controller
 
     }
 
-    public function variantA()
-    {
-        return view('labels.variantA');
-    }
-
     public function show(Order $commandes)
     {
         abort_if(Gate::denies('asset_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');

@@ -9,12 +9,15 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "barryvdh/laravel-dompdf": "2.*",
         "bugsnag/bugsnag-laravel": "^2.2",
+        "chrome-php/chrome": "^1.7",
         "codexshaper/laravel-woocommerce": "^3.0",
         "doctrine/dbal": "^3.3.6",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "haruncpi/laravel-user-activity": "^1.0",
+        "jonnyw/php-phantomjs": "2.*",
         "laravel/dusk": "^6.24",
         "laravel/framework": "^9.0",
         "laravel/passport": "^10.4.1",
@@ -24,6 +27,7 @@
         "rawilk/laravel-printing": "^3.0",
         "setasign/fpdf": "1.8",
         "setasign/fpdi": "^2.3",
+        "spatie/browsershot": "^3.57",
         "yajra/laravel-datatables-oracle": "^10.0.4"
     },
     "require-dev": {

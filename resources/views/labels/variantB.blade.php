@@ -10,11 +10,11 @@
     <style type="text/css">
         .variants {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 80mm;
+            height: 54mm;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-evenly;
             align-items: center;
             padding-left: 2mm;
             padding-right: 2mm;
@@ -24,16 +24,18 @@
             margin: auto;
             display: flex;
             flex-direction: column;
-            font-family: 'Times New Roman', Times, serif;
+            font-family: 'Times New Roman', Times, serif
         }
         .variant-container {
             background-color: orange; 
-            width : 100%; 
+            width : 76mm; 
             height : 12mm; 
             overflow : hidden;
             display: flex;
             flex-direction :column; 
             font-size :6px;
+            border: solid #000;
+            border-width: 0.1px;
             margin-top: 0.25mm;
             margin-bottom: 0.25mm;
         }
@@ -43,7 +45,6 @@
             height: 50%;
             align-items: center;
             transform: rotateX(180deg);
-            backface-visibility: hidden;
         }
         .logo {
             width: 13mm;
@@ -56,15 +57,20 @@
             padding: 0.5px;
             height: 50%;
         }
+        .emptyblock {
+            background-color: orange;
+            height: 20.5mm;
+            width: 100%;
+            border: solid #000;
+            border-width: 0.1px;
+        }
     </style>
 </head>
 <body>
     <div class="variants">
+        <div class="emptyblock"></div>
         <x-variant/>
-        <x-variant/>
-        <x-variant/>
-        <x-variant/>
-        <x-variant/>
+        <div class="emptyblock"></div>
     </div>
 </body>
 </html>

@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\CommandesController;
+use App\Http\Controllers\Admin\DownloadController;
 use Rawilk\Printing\Facades;
-
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +28,12 @@ Route::get('/stats','App\Http\Controllers\Admin\StatsController@index')->name('a
 
 Route::get('/print',[\App\Http\Controllers\makepdfController::class,'createpdf'])->name('print');
 
-Route::get('/variantA', [CommandesController::class, 'variantA']);
+Route::get('/variantA', [DownloadController::class, 'variantA']);
+Route::get('/variantB', [DownloadController::class, 'variantB']);
+Route::get('/enveloppeDL', [DownloadController::class, 'enveloppeDL']);
+Route::get('/download/variantA', [DownloadController::class, 'downloadVariantA']);
+Route::get('/download/variantB', [DownloadController::class, 'downloadVariantB']);
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::redirect('/', '/login')->name('home');
