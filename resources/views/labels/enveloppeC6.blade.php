@@ -10,17 +10,21 @@
     <style>
         .enveloppe {
             position: absolute;
-            width: 220mm;
-            height: 110mm;
-            padding: 14mm;
+            width: 119mm;
+            height: 79mm;
+            padding: 7mm;
             display: flex;
             justify-content: space-between;
-            flex-direction: column
+            flex-direction: column;
+            margin: auto
         }
         .sender {
             text-transform: uppercase;
             font-family: 'Courier New', Courier, monospace;
             font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row
         }
         .recipient {
             text-transform: uppercase;
@@ -34,7 +38,13 @@
 <body>
     <div class="enveloppe">
         <div class="sender">
-            Sender's Adress
+            <div >
+                Sender's Adress
+            </div>
+            <div style="text-align: right;">
+                <p style="margin-bottom: 0px">8678645767656646586</p>
+                <p>675e675e765</p>
+            </div>
         </div>
         <div class="recipient">
             Recipient's Adress

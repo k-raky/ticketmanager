@@ -12,11 +12,11 @@
             <div class="modal-body d-flex flex-direction-row align-items-center justify-content-evenly">
                 <div class="w-75">
                     <x-modal_download_options :titre="'1. Téléchargement des 10 étiquettes'" :toggle="'modal'" :target="'#modelVariants'" :dismiss="'modal'" />
-                    <x-modal_download_options :titre="'2. Téléchargement des enveloppes C6'" />
-                    <x-modal_download_options :titre="'3. Téléchargement des enveloppes DL'"  :href="'/enveloppeDL'"/>
-                    <x-modal_download_options :titre="'4. Téléchargement du bon de commande'" />
+                    <x-modal_download_options :titre="'2. Téléchargement des enveloppes C6'" :href="'/download/enveloppeC6'"/>
+                    <x-modal_download_options :titre="'3. Téléchargement des enveloppes DL'"  :href="'/download/enveloppeDL'"/>
+                    <x-modal_download_options :titre="'4. Téléchargement du bon de commande'" :href="'/download/bonCommande'"/>
                 </div>
-                <button type="button" class="btn btn-outline-danger h-50">Tout Telecharger</button>
+                <a role="button" class="btn btn-outline-danger h-50" href="/download/all">Tout Telecharger</a>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>

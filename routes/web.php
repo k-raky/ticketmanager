@@ -31,9 +31,15 @@ Route::get('/print',[\App\Http\Controllers\makepdfController::class,'createpdf']
 Route::get('/variantA', [DownloadController::class, 'variantA']);
 Route::get('/variantB', [DownloadController::class, 'variantB']);
 Route::get('/enveloppeDL', [DownloadController::class, 'enveloppeDL']);
+Route::get('/enveloppeC6', [DownloadController::class, 'enveloppeC6']);
+Route::get('/bon', [DownloadController::class, 'bon']);
 Route::get('/download/variantA', [DownloadController::class, 'downloadVariantA']);
 Route::get('/download/variantB', [DownloadController::class, 'downloadVariantB']);
-
+Route::get('/download/enveloppeDL', [DownloadController::class, 'downloadEnveloppeDL']);
+Route::get('/download/enveloppeC6', [DownloadController::class, 'downloadEnveloppeC6']);
+Route::get('/download/bonCommande', [DownloadController::class, 'downloadBonCommande']);
+Route::get('/download/all', [DownloadController::class, 'downloadAll']);
+    
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::redirect('/', '/login')->name('home');

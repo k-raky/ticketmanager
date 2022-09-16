@@ -8,38 +8,32 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
     <style>
-        .enveloppe {
+        .bon {
             position: absolute;
-            width: 220mm;
-            height: 110mm;
-            padding: 14mm;
+            width: 216mm;
+            height: 216mm;
             display: flex;
-            justify-content: space-between;
-            flex-direction: column
-        }
-        .sender {
+            justify-content: center;
+            align-items: center;
             text-transform: uppercase;
             font-family: 'Courier New', Courier, monospace;
             font-size: 14px;
+            display: flex;
+            flex-direction: column;
         }
-        .recipient {
-            text-transform: uppercase;
-            font-size: 14px;
-            font-family: 'Courier New', Courier, monospace;
-            align-self: flex-end
+        .ecriture {
+            width: 100%;
+            height: 100%;
+            
         }
     </style>
 
 </head>
 <body>
-    <div class="enveloppe">
-        <div class="sender">
-            Sender's Adress
-        </div>
-        <div class="recipient">
-            Recipient's Adress
-        </div>
-
+    <div class="bon">
+        <p>Nom du client : ueriuruwio wieuruwiuiu</p>
+        <p>Numero de Commande : 897478478748</p>
+        <p>Numero de traitement : 55848594895</p>
     </div>
 </body>
 </html>

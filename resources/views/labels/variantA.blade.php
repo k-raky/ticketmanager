@@ -25,7 +25,7 @@
             display: flex;
             flex-direction: column;
             font-family: 'Times New Roman', Times, serif;
-            font-size: 7.5px
+            font-size: 8px
         }
         .variant-container {
             width : 100%; 
@@ -43,7 +43,6 @@
             height: 50%;
             align-items: center;
             transform: rotateX(180deg);
-            backface-visibility: hidden;
         }
         .logo {
             width: 13mm;
