@@ -10,8 +10,8 @@
     <style type="text/css">
         .variants {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 80mm;
+            height: 83mm;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -25,9 +25,9 @@
             display: flex;
             flex-direction: column;
             font-family: 'Times New Roman', Times, serif;
+            font-size: 7.5px
         }
         .variant-container {
-            background-color: orange; 
             width : 100%; 
             height : 12mm; 
             overflow : hidden;

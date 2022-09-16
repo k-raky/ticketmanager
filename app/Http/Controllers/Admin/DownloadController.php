@@ -37,12 +37,21 @@ class DownloadController extends Controller
             try {
                 // creates a new page and navigate to an URL
                 $page = $browser->createPage();
-                $page->setViewport($width, $height);
-
-                $page->setHtml($view);
+                $page->setHtml($view, 30000);
 
                 // screenshot - Say "Cheese"! 😄
-                $page->screenshot()->saveToFile($downloadedFilePath);
+               // $page->screenshot()->saveToFile($downloadedFilePath);
+
+                $page->pdf([
+                    'preferCSSPageSize'   => true,             // default to false (reads parameters directly from @page)
+                    'marginTop'           => 0.0,              // defaults to ~0.4 (must be a float, value in inches)
+                    'marginBottom'        => 0.0,              // defaults to ~0.4 (must be a float, value in inches)
+                    'marginLeft'          => 0.0,              // defaults to ~0.4 (must be a float, value in inches)
+                    'marginRight'         => 0.0,
+                    'paperHeight' => 3.2677165354,
+                    'paperWidth' => 3.1496062992]
+                    )->saveToFile('/home/raky/Documents/Work/JSIT/variantA_bloc1.pdf');
+
 
             } finally {
                 // bye
@@ -61,12 +70,13 @@ class DownloadController extends Controller
         header("Content-type: text/html");
 
         self::printPage(302.36220472, 313.7007874, $view, '/home/raky/Documents/Work/JSIT/code/storage/app/public/img/variantA_bloc1.png');
+        self::printPage(302.36220472, 313.7007874, $view, '/home/raky/Documents/Work/JSIT/code/storage/app/public/img/variantA_bloc2.png');
         //self::printPage(302.36220472, 313.7007874, $view, '/home/raky/Documents/Work/JSIT/variantA_bloc2.png');
 
-        $data = [
+        /* $data = [
             'imagePath' => public_path('storage/img/variantA_bloc1.png'),
         ];
-        self::downloadToPDF('','','labels.image','', $data);
+        self::downloadToPDF('','','labels.image','', $data); */
                 
         return redirect('/');
 
