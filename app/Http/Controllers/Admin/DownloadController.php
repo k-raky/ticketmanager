@@ -80,6 +80,7 @@ class DownloadController extends Controller
         $commande = Order::find($commande_id);
 
         if (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit gleichen Informationen FR") {
+
             // If he chooses to put the same info on all the 10 labels
             $info1 = $commande['line_items'][0]->meta_data[0]->value[2]->value;
             $info2 = $commande['line_items'][0]->meta_data[0]->value[3]->value;
@@ -98,24 +99,32 @@ class DownloadController extends Controller
             self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/variantA_bloc1.pdf');
             self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/variantA_bloc2.pdf');
 
-
         } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
+
             // If he chooses to put different info on each of the 10 labels
             $j = 2;
-            $info = collect();
+            $data= collect();
 
-            for ($i=1; $i<=10; $i++) { 
-                $k = $j+4;
-                $nb=1;
-                while ($j<$k) {
-                    $info->put("info".$nb,$commande['line_items'][0]->meta_data[0]->value[$j]->value);
-                    $j++;
-                    $nb++;
+            for ($numero_variant=1; $numero_variant <= 2; $numero_variant++) { 
+               
+                for ($i=1; $i<=5; $i++) { 
+                    $k = $j+4;
+                    $nb=1;// numero de l'information : de 1 a 4
+                    
+                    $label_data = collect();
+
+                    while ($j<$k) {
+                        $label_data->put("info".$nb,$commande['line_items'][0]->meta_data[0]->value[$j]->value);
+                        $j++;
+                        $nb++;
+                    }
+
+                    $data->put("label".$i."_data", $label_data);
                 }
 
-                $view = view('labels.variantB', ['info'=> $info])->render();
+                $view = view('labels.variantA', ['data'=> $data])->render();
                 header("Content-type: text/html");
-                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/variantB_bloc'.$i.'.pdf');
+                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/variantA_bloc'.$numero_variant.'.pdf');
 
                 $j++;
             }
