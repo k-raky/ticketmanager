@@ -34,10 +34,12 @@
 <body>
     <div class="enveloppe">
         <div class="sender">
-            Sender's Adress
+            <p style="margin-bottom: 0px">rue la boetie</p>
+            <p>75008 paris</p>
         </div>
         <div class="recipient">
-            Recipient's Adress
+            <p style="margin-bottom: 0px">{{ $commande['billing']->address_1}}</p>
+            <p>{{ $commande['billing']->city}} {{ $commande['billing']->state}}</p>
         </div>
 
     </div>

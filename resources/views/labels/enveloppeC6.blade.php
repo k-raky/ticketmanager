@@ -38,16 +38,18 @@
 <body>
     <div class="enveloppe">
         <div class="sender">
-            <div >
-                Sender's Adress
+            <div>
+                <p style="margin-bottom: 0px">rue la boetie</p>
+                <p>75008 paris</p>
             </div>
             <div style="text-align: right;">
-                <p style="margin-bottom: 0px">8678645767656646586</p>
+                <p style="margin-bottom: 0px">{{ $commande['order_key']}}</p>
                 <p>675e675e765</p>
             </div>
         </div>
         <div class="recipient">
-            Recipient's Adress
+            <p style="margin-bottom: 0px">{{ $commande['billing']->address_1}}</p>
+            <p>{{ $commande['billing']->city}} {{ $commande['billing']->state}}</p>
         </div>
 
     </div>

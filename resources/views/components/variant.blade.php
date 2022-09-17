@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="variant-text" style="height: 50%; width:100%; border-top-width: 0.1px;border-top-style:dashed;">
-            <p style="margin-bottom: 0px">yomenyannick@gmail.com / 00237 69 95 96 98 3</p>
-            <p>17 65 67 29 35 2 / 0049 17 21 90 06 72</p>
+            <p style="margin-bottom: 0px">{{ $info['info1'] }} / {{ $info['info2'] }}</p>
+            <p>{{ $info['info3'] }} / {{ $info['info4'] }}</p>
         </div>
 </div>

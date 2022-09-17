@@ -59,7 +59,7 @@
 </head>
 <body>
     <div class="variants">
-        <x-variant/>
+        <x-variant :info="$info"/>
     </div>
 </body>
 </html>

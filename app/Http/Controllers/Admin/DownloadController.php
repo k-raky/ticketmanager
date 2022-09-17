@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use JonnyW\PhantomJs\Client;
 use HeadlessChromium\BrowserFactory;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use Codexshaper\WooCommerce\Facades\Order;
 
 class DownloadController extends Controller
 {
@@ -73,40 +73,124 @@ class DownloadController extends Controller
         return $pdf->download();
     } */
 
-    public function downloadVariantA(){
+    public function downloadVariantA($commande_id){
 
-        $view = view('labels.variantA')->render();
+        //return view('labels.variantA', ['commande'=> $commande]);
+        
+        $commande = Order::find($commande_id);
+
+        if (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit gleichen Informationen FR") {
+            // If he chooses to put the same info on all the 10 labels
+            $info1 = $commande['line_items'][0]->meta_data[0]->value[2]->value;
+            $info2 = $commande['line_items'][0]->meta_data[0]->value[3]->value;
+            $info3 = $commande['line_items'][0]->meta_data[0]->value[4]->value;
+            $info4 = $commande['line_items'][0]->meta_data[0]->value[5]->value;
+
+            $info = collect([
+                'info1' => $info1, 
+                'info2' => $info2, 
+                'info3' => $info3, 
+                'info4' => $info4]);
+
+            $view = view('labels.variantA', ['info'=> $info])->render();
+            header("Content-type: text/html");
+
+            self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/variantA_bloc1.pdf');
+            self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/variantA_bloc2.pdf');
+
+
+        } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
+            // If he chooses to put different info on each of the 10 labels
+            $j = 2;
+            $info = collect();
+
+            for ($i=1; $i<=10; $i++) { 
+                $k = $j+4;
+                $nb=1;
+                while ($j<$k) {
+                    $info->put("info".$nb,$commande['line_items'][0]->meta_data[0]->value[$j]->value);
+                    $j++;
+                    $nb++;
+                }
+
+                $view = view('labels.variantB', ['info'=> $info])->render();
+                header("Content-type: text/html");
+                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/variantB_bloc'.$i.'.pdf');
+
+                $j++;
+            }
+
+        }
+
+        $view = view('labels.variantA', ['commande'=> $commande])->render();
         header("Content-type: text/html");
 
         self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/variantA_bloc1.pdf');
         self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/variantA_bloc2.pdf');
-        //self::printPage(302.36220472, 313.7007874, $view, '/home/raky/Documents/Work/JSIT/variantA_bloc2.png');
-
-        /* $data = [
-            'imagePath' => public_path('storage/img/variantA_bloc1.png'),
-        ];
-        self::downloadToPDF('','','labels.image','', $data); */
                 
         return redirect('/');
 
     }
 
-    public function downloadVariantB(){
+    public function downloadVariantB($commande_id){
 
-        $view = view('labels.variantB')->render();
-        header("Content-type: text/html");
+        $commande = Order::find($commande_id);
 
-        for ($i=1; $i<=10; $i++) { 
-            self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/variantB_bloc'.$i.'.pdf');
+        if (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit gleichen Informationen FR") {
+            // If he chooses to put the same info on all the 10 labels
+            $info1 = $commande['line_items'][0]->meta_data[0]->value[2]->value;
+            $info2 = $commande['line_items'][0]->meta_data[0]->value[3]->value;
+            $info3 = $commande['line_items'][0]->meta_data[0]->value[4]->value;
+            $info4 = $commande['line_items'][0]->meta_data[0]->value[5]->value;
+
+            $info = collect([
+                'info1' => $info1, 
+                'info2' => $info2, 
+                'info3' => $info3, 
+                'info4' => $info4]);
+
+            $view = view('labels.variantB', ['info'=> $info])->render();
+
+            header("Content-type: text/html");
+    
+            for ($i=1; $i<=10; $i++) { 
+                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/variantB_bloc'.$i.'.pdf');
+            }
+
+            return redirect('/');
+
+        } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
+            // If he chooses to put different info on each of the 10 labels
+            $j = 2;
+            $info = collect();
+
+            for ($i=1; $i<=10; $i++) { 
+                $k = $j+4;
+                $nb=1;
+                while ($j<$k) {
+                    $info->put("info".$nb,$commande['line_items'][0]->meta_data[0]->value[$j]->value);
+                    $j++;
+                    $nb++;
+                }
+
+                $view = view('labels.variantB', ['info'=> $info])->render();
+                header("Content-type: text/html");
+                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/variantB_bloc'.$i.'.pdf');
+
+                $j++;
+            }
+
         }
-        
+
         return redirect('/');
-                
+         
     }
 
-    public function downloadEnveloppeDL(){
+    public function downloadEnveloppeDL($commande_id){
 
-        $view = view('labels.enveloppeDL')->render();
+        $commande = Order::find($commande_id);
+
+        $view = view('labels.enveloppeDL', ['commande'=> $commande])->render();
         header("Content-type: text/html");
 
         self::downloadToPDF(8.6614173228, 4.3307086614, $view, '/home/raky/Documents/Work/JSIT/enveloppeDL.pdf');
@@ -115,9 +199,11 @@ class DownloadController extends Controller
                 
     }
 
-    public function downloadEnveloppeC6(){
+    public function downloadEnveloppeC6($commande_id){
 
-        $view = view('labels.enveloppeC6')->render();
+        $commande = Order::find($commande_id);
+
+        $view = view('labels.enveloppeC6', ['commande'=> $commande])->render();
         header("Content-type: text/html");
 
         self::downloadToPDF(4.7244094488, 3.1496062992, $view, '/home/raky/Documents/Work/JSIT/enveloppeC6.pdf');
@@ -126,24 +212,26 @@ class DownloadController extends Controller
                 
     }
 
-    public function downloadBonCommande(){
+    public function downloadBonCommande($commande_id){
 
-        $view = view('labels.bonCommande')->render();
+        $commande = Order::find($commande_id);
+
+        $view = view('labels.bonCommande', ['commande'=> $commande])->render();
         header("Content-type: text/html");
 
-        self::downloadToPDF(8.5, 8.5, $view, '/home/raky/Documents/Work/JSIT/bonCommande.pdf');
+        self::downloadToPDF(7.874015748, 3.937007874, $view, '/home/raky/Documents/Work/JSIT/bonCommande.pdf');
         
         return redirect('/');
                 
     }
 
-    public function downloadAll(){
+    public function downloadAll($commande_id){
 
-        self::downloadVariantA();
-        self::downloadVariantB();
-        self::downloadEnveloppeC6();
-        self::downloadEnveloppeDL();
-        self::downloadBonCommande();
+        self::downloadVariantA($commande_id);
+        self::downloadVariantB($commande_id);
+        self::downloadEnveloppeC6($commande_id);
+        self::downloadEnveloppeDL($commande_id);
+        self::downloadBonCommande($commande_id);
 
         return redirect('/');
 

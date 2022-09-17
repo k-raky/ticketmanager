@@ -10,30 +10,29 @@
     <style>
         .bon {
             position: absolute;
-            width: 216mm;
-            height: 216mm;
+            width: 200mm;
+            height: 100mm;
             display: flex;
             justify-content: center;
             align-items: center;
             text-transform: uppercase;
             font-family: 'Courier New', Courier, monospace;
             font-size: 14px;
+        }
+        .ecriture { 
             display: flex;
             flex-direction: column;
-        }
-        .ecriture {
-            width: 100%;
-            height: 100%;
-            
         }
     </style>
 
 </head>
 <body>
     <div class="bon">
-        <p>Nom du client : ueriuruwio wieuruwiuiu</p>
-        <p>Numero de Commande : 897478478748</p>
-        <p>Numero de traitement : 55848594895</p>
+        <div class="ecriture">
+            <p>Nom du client : {{ $commande['billing']->first_name}} {{ $commande['billing']->last_name}}</p>
+            <p>Numero de Commande : {{ $commande['order_key']}}</p>
+            <p>Numero de traitement : 55848594895</p>
+        </div>
     </div>
 </body>
 </html>

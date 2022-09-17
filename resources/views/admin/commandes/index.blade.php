@@ -94,23 +94,14 @@
                                 ">
                                
                                <h6> {{ $commande->status ?? '' }}</h6>
-                                 
-                            
-                            
-                                
-                         </td>
+                            </td>
                       
-                      
-                      
-                    
-                        
-                        
                             <td>
                                
                             
                                 @can('asset_edit')
 
-                                <a class="btn btn-xs btn-info text-light" data-toggle="modal" data-target="#modelTelecharger">
+                                <a class="btn btn-xs btn-info text-light" data-toggle="modal" data-target="#modelTelecharger{{ $commande->id}}">
                                     Télécharger
                                 </a>
                             @endcan
@@ -120,6 +111,7 @@
 
                         </tr>
 
+                        @include('admin.commandes.modal')
                         
                     @endforeach
                 </tbody>
@@ -127,7 +119,6 @@
         </div>
     </div>
 
-    @include('admin.commandes.modal')
 
 </div>
 

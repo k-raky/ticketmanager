@@ -1,9 +1,9 @@
 
 <!-- First modal for the downloading options -->
-<div class="modal fade" id="modelTelecharger" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+<div class="modal fade" id="modelTelecharger{{$commande->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header ">
+            <div class="modal-header">
                 <h5 class="modal-title text-center">Telecharger les étiquettes</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -11,12 +11,12 @@
             </div>
             <div class="modal-body d-flex flex-direction-row align-items-center justify-content-evenly">
                 <div class="w-75">
-                    <x-modal_download_options :titre="'1. Téléchargement des 10 étiquettes'" :toggle="'modal'" :target="'#modelVariants'" :dismiss="'modal'" />
-                    <x-modal_download_options :titre="'2. Téléchargement des enveloppes C6'" :href="'/download/enveloppeC6'"/>
-                    <x-modal_download_options :titre="'3. Téléchargement des enveloppes DL'"  :href="'/download/enveloppeDL'"/>
-                    <x-modal_download_options :titre="'4. Téléchargement du bon de commande'" :href="'/download/bonCommande'"/>
+                    <x-modal_download_options :titre="'1. Téléchargement des 10 étiquettes'" :toggle="'modal'" :target="'#modelVariants'.$commande->id" :dismiss="'modal'" />
+                    <x-modal_download_options :titre="'2. Téléchargement des enveloppes C6'" :href="route('download.enveloppeC6', ['commande_id'=>$commande->id])"/>
+                    <x-modal_download_options :titre="'3. Téléchargement des enveloppes DL'"  :href="route('download.enveloppeDL', ['commande_id'=>$commande->id])"/>
+                    <x-modal_download_options :titre="'4. Téléchargement du bon de commande'" :href="route('download.bonCommande', ['commande_id'=>$commande->id])"/>
                 </div>
-                <a role="button" class="btn btn-outline-danger h-50" href="/download/all">Tout Telecharger</a>
+                <a role="button" class="btn btn-outline-danger h-50" href="{{ route('download.all', ['commande_id'=>$commande->id]) }}">Tout Telecharger</a>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -27,7 +27,7 @@
 
 
 <!-- 2nd modal to show the options when downloading the 10 labels -->
-<div class="modal fade" id="modelVariants" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+<div class="modal fade" id="modelVariants{{$commande->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -38,9 +38,9 @@
             </div>
             <div class="modal-body d-flex justify-content-evenly">
                 <!--button to download variant A-->
-                <a role="button" class="btn btn-info text-light fs-5 fw-bold" href="/download/variantA">10 étiquettes en 2 blocs de 5</a>
+                <a role="button" class="btn btn-info text-light fs-5 fw-bold" href="{{ route('download.variantA', ['commande_id'=>$commande->id]) }}">10 étiquettes en 2 blocs de 5</a>
                 <!--button to download variant B-->
-                <a role="button" class="btn btn-info text-light fs-5 fw-bold" href="/download/variantB">10 étiquettes individuelles</a>
+                <a role="button" class="btn btn-info text-light fs-5 fw-bold" href="{{ route('download.variantB', ['commande_id'=>$commande->id]) }}">10 étiquettes individuelles</a>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
