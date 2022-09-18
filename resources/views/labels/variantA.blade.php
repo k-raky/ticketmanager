@@ -59,11 +59,25 @@
 </head>
 <body>
     <div class="variants">
-        <x-variant :info="$info"/>
-        <x-variant :info="$info"/>
-        <x-variant :info="$info"/>
-        <x-variant :info="$info"/>
-        <x-variant :info="$info"/>
+
+        @if(isset($data) && $data->isNotEmpty())
+        
+            <x-variant :info="$data['label1_info']"/>
+            <x-variant :info="$data['label2_info']"/>
+            <x-variant :info="$data['label3_info']"/>
+            <x-variant :info="$data['label4_info']"/>
+            <x-variant :info="$data['label5_info']"/>
+            
+        @elseif(isset($info) && $info->isNotEmpty())
+
+            <x-variant :info="$info"/>
+            <x-variant :info="$info"/>
+            <x-variant :info="$info"/>
+            <x-variant :info="$info"/>
+            <x-variant :info="$info"/>
+            
+        @endif
+        
     </div>
 </body>
 </html>

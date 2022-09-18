@@ -4,7 +4,7 @@
             <p class="fs-5">{{ $titre}}</p>
         </div>
         <div class="col">
-            <a type="button" class="btn btn-info text-light fs-5 fw-bold" href={{ $href ?? '' }} data-dismiss={{ $dismiss ?? '' }} data-toggle={{ $toggle ?? ''}} data-target={{ $target ?? ''}}>Telecharger</a>
+            <a type="button" class="btn btn-info text-light fs-5 fw-bold" href={{ $href ?? '' }} data-dismiss={{ $dismiss}} data-toggle={{ $toggle ?? ''}} data-target={{ $target ?? ''}}>Telecharger</a>
         </div>
     </div>
 </div>

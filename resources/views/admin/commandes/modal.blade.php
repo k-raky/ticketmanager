@@ -12,9 +12,9 @@
             <div class="modal-body d-flex flex-direction-row align-items-center justify-content-evenly">
                 <div class="w-75">
                     <x-modal_download_options :titre="'1. Téléchargement des 10 étiquettes'" :toggle="'modal'" :target="'#modelVariants'.$commande->id" :dismiss="'modal'" />
-                    <x-modal_download_options :titre="'2. Téléchargement des enveloppes C6'" :href="route('download.enveloppeC6', ['commande_id'=>$commande->id])"/>
-                    <x-modal_download_options :titre="'3. Téléchargement des enveloppes DL'"  :href="route('download.enveloppeDL', ['commande_id'=>$commande->id])"/>
-                    <x-modal_download_options :titre="'4. Téléchargement du bon de commande'" :href="route('download.bonCommande', ['commande_id'=>$commande->id])"/>
+                    <x-modal_download_options :titre="'2. Téléchargement des enveloppes C6'" :href="route('download.enveloppeC6', ['commande_id'=>$commande->id])" :dismiss="''"/>
+                    <x-modal_download_options :titre="'3. Téléchargement des enveloppes DL'"  :href="route('download.enveloppeDL', ['commande_id'=>$commande->id])" :dismiss="''"/>
+                    <x-modal_download_options :titre="'4. Téléchargement du bon de commande'" :href="route('download.bonCommande', ['commande_id'=>$commande->id])" :dismiss="''"/>
                 </div>
                 <a role="button" class="btn btn-outline-danger h-50" href="{{ route('download.all', ['commande_id'=>$commande->id]) }}">Tout Telecharger</a>
             </div>

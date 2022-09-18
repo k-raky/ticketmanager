@@ -96,8 +96,8 @@ class DownloadController extends Controller
             $view = view('labels.variantA', ['info'=> $info])->render();
             header("Content-type: text/html");
 
-            self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/variantA_bloc1.pdf');
-            self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/variantA_bloc2.pdf');
+            self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_variantA_bloc1.pdf');
+            self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_variantA_bloc2.pdf');
 
         } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
 
@@ -119,23 +119,18 @@ class DownloadController extends Controller
                         $nb++;
                     }
 
-                    $data->put("label".$i."_data", $label_data);
+                    $data->put("label".$i."_info", $label_data);
+
+                    $j++;
                 }
 
                 $view = view('labels.variantA', ['data'=> $data])->render();
                 header("Content-type: text/html");
-                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/variantA_bloc'.$numero_variant.'.pdf');
+                self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_variantA_bloc'.$numero_variant.'.pdf');
 
-                $j++;
             }
 
         }
-
-        $view = view('labels.variantA', ['commande'=> $commande])->render();
-        header("Content-type: text/html");
-
-        self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/variantA_bloc1.pdf');
-        self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/variantA_bloc2.pdf');
                 
         return redirect('/');
 
@@ -163,7 +158,7 @@ class DownloadController extends Controller
             header("Content-type: text/html");
     
             for ($i=1; $i<=10; $i++) { 
-                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/variantB_bloc'.$i.'.pdf');
+                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_variantB_bloc'.$i.'.pdf');
             }
 
             return redirect('/');
@@ -184,7 +179,7 @@ class DownloadController extends Controller
 
                 $view = view('labels.variantB', ['info'=> $info])->render();
                 header("Content-type: text/html");
-                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/variantB_bloc'.$i.'.pdf');
+                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_variantB_bloc'.$i.'.pdf');
 
                 $j++;
             }
@@ -202,7 +197,7 @@ class DownloadController extends Controller
         $view = view('labels.enveloppeDL', ['commande'=> $commande])->render();
         header("Content-type: text/html");
 
-        self::downloadToPDF(8.6614173228, 4.3307086614, $view, '/home/raky/Documents/Work/JSIT/enveloppeDL.pdf');
+        self::downloadToPDF(8.6614173228, 4.3307086614, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_enveloppeDL.pdf');
         
         return redirect('/');
                 
@@ -215,7 +210,7 @@ class DownloadController extends Controller
         $view = view('labels.enveloppeC6', ['commande'=> $commande])->render();
         header("Content-type: text/html");
 
-        self::downloadToPDF(4.7244094488, 3.1496062992, $view, '/home/raky/Documents/Work/JSIT/enveloppeC6.pdf');
+        self::downloadToPDF(4.7244094488, 3.1496062992, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_enveloppeC6.pdf');
         
         return redirect('/');
                 
@@ -228,7 +223,7 @@ class DownloadController extends Controller
         $view = view('labels.bonCommande', ['commande'=> $commande])->render();
         header("Content-type: text/html");
 
-        self::downloadToPDF(7.874015748, 3.937007874, $view, '/home/raky/Documents/Work/JSIT/bonCommande.pdf');
+        self::downloadToPDF(7.874015748, 3.937007874, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_bonCommande.pdf');
         
         return redirect('/');
                 
