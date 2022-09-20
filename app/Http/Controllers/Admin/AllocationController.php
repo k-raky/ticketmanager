@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Allocation;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AllocationController extends Controller
 {
@@ -14,7 +18,11 @@ class AllocationController extends Controller
      */
     public function index()
     {
-        //
+        abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $allocations = Allocation::all();
+
+        return $allocations;
     }
 
     /**
@@ -25,7 +33,16 @@ class AllocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
+        /* foreach ($commandes as $commande) {
+            Allocation::create([
+                "id_user" => $user_id,
+                "id_commande" => $commande->id
+            ]);
+        } */
+
+        dd($request);
     }
 
     /**

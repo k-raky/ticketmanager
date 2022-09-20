@@ -29,8 +29,8 @@
 <body>
     <div class="bon">
         <div class="ecriture">
-            <p>Nom du client : {{ $commande['billing']->first_name}} {{ $commande['billing']->last_name}}</p>
-            <p>Numero de Commande : {{ $commande['order_key']}}</p>
+            <p>Nom du client : {{ $commande['shipping']->first_name}} {{ $commande['shipping']->last_name}}</p>
+            <p>Numero de Commande : {{ $commande['number']}}</p>
             <p>Numero de traitement : 55848594895</p>
         </div>
     </div>

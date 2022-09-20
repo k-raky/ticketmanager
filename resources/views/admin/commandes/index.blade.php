@@ -157,8 +157,36 @@
       }
     }
   }
+  
+  let allocateButton = {
+      className: 'btn-default',
+      text: "Allouer",
+      exportOptions: {
+          columns: ':visible'
+        },
+        action : function (e, dt, node, config) {
+            let data= dt.rows({selected :true}).data();
+            console.log(data)
+            if (data.length != 0) {   
+                $.ajax({
+                    headers: {'x-csrf-token': _token},
+                    type: 'POST',
+                    url: "{{ route('allocate') }}",
+                    data: { commandes : data, user_id: 9 },
+                    error: function(jqXHR, textStatus, errorThrown){
+        console.log(textStatus, errorThrown);
+     }
+                })
+                
+            }
+        }
+        
+    }
+    
+    @endcan
+  dtButtons.push(allocateButton)
   dtButtons.push(deleteButton)
-@endcan
+  
 
   $.extend(true, $.fn.dataTable.defaults, {
     order: [[ 1, 'desc' ]],

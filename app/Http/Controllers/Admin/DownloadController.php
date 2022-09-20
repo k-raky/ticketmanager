@@ -157,19 +157,27 @@ class DownloadController extends Controller
 
             header("Content-type: text/html");
     
-            for ($i=1; $i<=10; $i++) { 
-                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_variantB_bloc'.$i.'.pdf');
-            }
+            $color_etiquette_1 = $commande['line_items'][0]->meta_data[0]->value[1]->value;
+            self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_'.$color_etiquette_1.'_variantB_bloc1.pdf');
+            $nb_color_array = 5;
 
-            return redirect('/');
+            for ($i=2; $i<=10; $i++) { 
+                $nb_color_array++;
+                $color_etiquette = $commande['line_items'][0]->meta_data[0]->value[$nb_color_array]->value;
+                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_'.$color_etiquette.'_variantB_bloc'.$i.'.pdf');
+            }
 
         } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
             // If he chooses to put different info on each of the 10 labels
             $j = 2;
             $info = collect();
+            $nb_color_array = 1; // color of labels place in array 
 
+            //number of blocs
             for ($i=1; $i<=10; $i++) { 
+                //info of labels is in every 4 blocs
                 $k = $j+4;
+                //information number : 1 to 4
                 $nb=1;
                 while ($j<$k) {
                     $info->put("info".$nb,$commande['line_items'][0]->meta_data[0]->value[$j]->value);
@@ -179,9 +187,13 @@ class DownloadController extends Controller
 
                 $view = view('labels.variantB', ['info'=> $info])->render();
                 header("Content-type: text/html");
-                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_variantB_bloc'.$i.'.pdf');
+
+                $color_etiquette = $commande['line_items'][0]->meta_data[0]->value[$nb_color_array]->value;
+
+                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_'.$color_etiquette.'_variantB_bloc'.$i.'.pdf');
 
                 $j++;
+                $nb_color_array+=5;
             }
 
         }
@@ -229,13 +241,25 @@ class DownloadController extends Controller
                 
     }
 
-    public function downloadAll($commande_id){
+    public function downloadAll($commande_id, $variant){
 
-        self::downloadVariantA($commande_id);
-        self::downloadVariantB($commande_id);
-        self::downloadEnveloppeC6($commande_id);
-        self::downloadEnveloppeDL($commande_id);
-        self::downloadBonCommande($commande_id);
+        switch ($variant) {
+            case 'A':
+                self::downloadVariantA($commande_id);
+                self::downloadEnveloppeC6($commande_id);
+                self::downloadEnveloppeDL($commande_id);
+                self::downloadBonCommande($commande_id);
+                break;
+            case 'B':
+                self::downloadVariantB($commande_id);
+                self::downloadEnveloppeC6($commande_id);
+                self::downloadEnveloppeDL($commande_id);
+                self::downloadBonCommande($commande_id);
+                break;
+            default:
+                break;
+        }
+        
 
         return redirect('/');
 

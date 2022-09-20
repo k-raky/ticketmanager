@@ -121,7 +121,6 @@
   let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}'
   let selectAllButtonTrans = 'Selectionnner'
   let selectNoneButtonTrans = 'Désélectionner'
-  let allouerButton = 'Allouer'
 
   let languages = {
     'fr': 'https://cdn.datatables.net/plug-ins/1.12.1/i18n/fr-FR.json'
@@ -205,15 +204,7 @@
         exportOptions: {
           columns: ':visible'
         }
-      },
-      {
-        className: 'btn-default',
-        text: allouerButton,
-        exportOptions: {
-          columns: ':visible'
-        }
       }
-     
     ]
   });
 

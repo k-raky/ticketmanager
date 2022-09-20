@@ -21,16 +21,17 @@
         .sender {
             text-transform: uppercase;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 14px;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: row
+            font-size: 12px;
         }
         .recipient {
             text-transform: uppercase;
-            font-size: 14px;
+            font-size: 12px;
             font-family: 'Courier New', Courier, monospace;
-            align-self: flex-end
+            align-self: flex-end;
+            text-align: right
+        }
+        p {
+            margin-bottom: 0px
         }
     </style>
 
@@ -38,18 +39,20 @@
 <body>
     <div class="enveloppe">
         <div class="sender">
-            <div>
-                <p style="margin-bottom: 0px">rue la boetie</p>
-                <p>75008 paris</p>
-            </div>
-            <div style="text-align: right;">
-                <p style="margin-bottom: 0px">{{ $commande['order_key']}}</p>
-                <p>675e675e765</p>
-            </div>
+          
+            <p>{{ $commande['meta_data'][8]->value->shop_name->default }}</p>
+            <p>{{ $commande['meta_data'][8]->value->shop_address->default }}</p>
+            <p>{{ $commande['meta_data'][8]->value->footer->default }}</p>
+               
         </div>
         <div class="recipient">
-            <p style="margin-bottom: 0px">{{ $commande['billing']->address_1}}</p>
-            <p>{{ $commande['billing']->city}} {{ $commande['billing']->state}}</p>
+            <p>{{ $commande['shipping']->first_name}} {{ $commande['shipping']->last_name}}</p>
+            <p>{{ $commande['shipping']->address_1}}</p>
+            <p>{{ $commande['shipping']->postcode}} {{ $commande['shipping']->city}}</p>
+            <p> {{ $commande['shipping']->country}} </p>
+            <br>
+            <p>{{ $commande['number']}}</p>
+            <p>{{ $commande['order_key']}}</p>
         </div>
 
     </div>
