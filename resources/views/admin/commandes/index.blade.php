@@ -8,9 +8,12 @@
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered table-striped table-hover datatable datatable-Asset">
+            <table class="table table-bordered table-striped table-hover datatable datatable-Asset text-center align-middle">
                 <thead>
                     <tr>
+                        <th>
+
+                        </th>
                         <th >
                          ID
                         </th>
@@ -46,7 +49,9 @@
                             État
                            </th>
 
-                        
+                           <th>
+                               Responsable
+                           </th>
                         
                         <th>
                            Opérations
@@ -56,8 +61,11 @@
                 </thead>
                 <tbody>
                     @foreach($commandes as $commande)
-                        <tr data-entry-id="{{ $commande->id}}"
-                            >
+                        <tr data-entry-id="{{ $commande->id}}">
+
+                            <td class="align-middle text-center">
+
+                            </td>
                                
                             <td>
                                 {{ $commande->id ?? '' }}
@@ -99,6 +107,14 @@
                                <h6> {{ $commande->status ?? '' }}</h6>
                             </td>
                       
+                            <td>
+                                @foreach ($allocations as $allocation)
+                                    @if ($allocation->id_commande == $commande->id)
+                                        {{ $allocation->id_user}}
+                                    @endif
+                                @endforeach
+                            </td>
+
                             <td>
                                
                             
@@ -197,9 +213,13 @@
                 let commandes_ids = [];
 
                 for (let i = 0; i < selectedRows.length; i++) {
-                    commandes_ids.push(selectedRows[i][0]);
+                    if (!(selectedRows[i][9].includes("cancelled"))) {
+                        commandes_ids.push(selectedRows[i][0]);
+                    } 
                 }
 
+                if (commandes_ids.length != 0) {
+                    
                 $('#modelListeUsers').modal("show") // relatedTarget
 
                 var list_users = document.getElementsByClassName("list-group-item");
@@ -220,6 +240,7 @@
 
                     }
                 }
+            }
                 
             }
         }

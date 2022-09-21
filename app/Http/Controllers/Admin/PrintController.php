@@ -20,11 +20,12 @@ class PrintController extends Controller
     }
 
     public function print(Request $request){
-        
-        $printerId = $request->printerId;
-        Printing::newPrintTask()
-        ->printer(715948417159484271594843715948447159484571594846)
+
+        $print = Printing::newPrintTask()
+        ->printer((int) $request->printerId)
         ->file('/home/raky/Téléchargements/2665_variantB_bloc1.pdf')
         ->send();
+
+        return $print;
     }
 }

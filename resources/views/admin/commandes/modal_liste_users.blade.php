@@ -17,7 +17,7 @@
                         <div class="col-4 ">Team Id</div>
                     </div>
                     @foreach ($users as $user)
-                        <a href="#" class="list-group-item list-group-item-action text-dark">
+                        <a class="list-group-item list-group-item-action text-dark">
                             <div class="row text-center">
                                 <div class="user_id col-4">{{ $user->id}}</div>
                                 <div class="col-4 ">{{ $user->name}}</div>

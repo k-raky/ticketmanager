@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
+use App\Allocation;
 use Codexshaper\WooCommerce\Facades\Order;
 use App\Asset;
 use App\Http\Controllers\Controller;
@@ -16,12 +18,13 @@ use App\User;
 class CommandesController extends Controller
 { public function index()
     {
-        abort_if(Gate::denies('asset_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+       abort_if(Gate::denies('asset_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $commandes = Order::all();
         $users = User::all();
+        $allocations = Allocation::all();
 
-        return view('admin.commandes.index', compact('commandes', 'users'));
+        return view('admin.commandes.index', compact('commandes', 'users', 'allocations'));
     }
 
     public function showModalListeUsers(Request $request)

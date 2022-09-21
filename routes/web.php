@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::redirect('/', '/login');
+
 Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
@@ -29,8 +30,6 @@ Route::get('/logout',);
 
 Route::get('/stats','App\Http\Controllers\Admin\StatsController@index')->name('admin.commandes.stats');
 
-Route::get('/print',[\App\Http\Controllers\makepdfController::class,'createpdf'])->name('print');
-
 Route::get('/variantA', [DownloadController::class, 'variantA']);
 Route::get('/variantB', [DownloadController::class, 'variantB']);
 Route::get('/enveloppeDL', [DownloadController::class, 'enveloppeDL']);
@@ -47,7 +46,8 @@ Route::get('/allocate', [AllocationController::class, 'store'])->name('allocate'
 
 Route::get('/printers', [PrintController::class, 'listPrinters'])->name('printers');
 
-Route::get('/print', [PrintController::class, 'print'])->name('print');
+Route::post('/print', [PrintController::class, 'print'])->name('print');
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::redirect('/', '/login')->name('home');
