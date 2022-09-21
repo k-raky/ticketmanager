@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\PrintController;
+use Illuminate\Support\Facades\Route;
+
 Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', 'middleware' => ['auth:api']], function () {
     // Permissions
     Route::apiResource('permissions', 'PermissionsApiController');
@@ -21,5 +24,8 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Transactions
     Route::apiResource('transactions', 'TransactionsApiController');
+
+    Route::post('/printDocs', [PrintController::class, 'print'])->name('printDocs');
+
 
 });

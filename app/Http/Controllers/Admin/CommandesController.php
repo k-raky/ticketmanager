@@ -11,6 +11,7 @@ use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\makepdfController;
+use App\User;
 
 class CommandesController extends Controller
 { public function index()
@@ -18,9 +19,21 @@ class CommandesController extends Controller
         abort_if(Gate::denies('asset_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $commandes = Order::all();
+        $users = User::all();
 
-        return view('admin.commandes.index', compact('commandes'));
+        return view('admin.commandes.index', compact('commandes', 'users'));
     }
+
+    public function showModalListeUsers(Request $request)
+    {
+        abort_if(Gate::denies('asset_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $users = User::all();
+        $commandes_ids = $request->commandes_ids;
+
+        return view('admin.commandes.modal_liste_users', compact('commandes_ids', 'users'));
+    }
+
 
     public function create()
     {
@@ -43,6 +56,7 @@ class CommandesController extends Controller
 
         return view('admin.commandes.edit', compact('commandes'));
     }
+    
 
     public function update(UpdateAssetRequest $request, Order $commandes)
     {

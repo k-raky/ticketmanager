@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Allocation;
 
 use App\Http\Controllers\Controller;
+use Codexshaper\WooCommerce\Facades\Order;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,16 +34,17 @@ class AllocationController extends Controller
      */
     public function store(Request $request)
     {
-        abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        
-        /* foreach ($commandes as $commande) {
-            Allocation::create([
-                "id_user" => $user_id,
-                "id_commande" => $commande->id
-            ]);
-        } */
+        $commandes_ids = $request->commandes_ids;
+        $user_id = $request->user_id;
 
-        dd($request);
+        $data     = [
+            'responsible' => $user_id,
+        ];
+        
+        for ($i=0; $i < count($commandes_ids); $i++) { 
+            Order::update($commandes_ids[$i], $data);
+        }
+        
     }
 
     /**

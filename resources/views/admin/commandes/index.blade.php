@@ -45,10 +45,13 @@
                         <th>
                             État
                            </th>
+
+                        
                         
                         <th>
                            Opérations
                         </th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -119,6 +122,8 @@
         </div>
     </div>
 
+    @include('admin.commandes.modal_liste_users')
+
 
 </div>
 
@@ -157,6 +162,7 @@
       }
     }
   }
+  @endcan
   
   let allocateButton = {
       className: 'btn-default',
@@ -165,25 +171,61 @@
           columns: ':visible'
         },
         action : function (e, dt, node, config) {
-            let data= dt.rows({selected :true}).data();
-            console.log(data)
-            if (data.length != 0) {   
+            let selectedRows= dt.rows({selected :true}).data();
+            console.log(selectedRows)
+            if (selectedRows.length != 0) {   
+                /* var token = "{{csrf_token()}}"
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
-                    headers: {'x-csrf-token': _token},
-                    type: 'POST',
-                    url: "{{ route('allocate') }}",
-                    data: { commandes : data, user_id: 9 },
+                    method: "POST",
+                    url: config.url,  
+                    data: {
+                        _token : token,
+                        commandes : 'ok',
+                        user_id : 9
+                    },
                     error: function(jqXHR, textStatus, errorThrown){
-        console.log(textStatus, errorThrown);
-     }
-                })
+                        console.log(textStatus, errorThrown);
+                    }
+                })  */
+
+                //return location.href = "http://localhost:8000/allocate/commandes/"+selectedRows+"/user_id/9";
+                let commandes_ids = [];
+
+                for (let i = 0; i < selectedRows.length; i++) {
+                    commandes_ids.push(selectedRows[i][0]);
+                }
+
+                $('#modelListeUsers').modal("show") // relatedTarget
+
+                var list_users = document.getElementsByClassName("list-group-item");
+                for (i = 0; i < list_users.length; i++) {
+                    list_users[i].onclick=function(){ 
+                       list_users[i-1].getElementsByClassName("row")[0].getElementsByClassName("user_id")[0].id="user_id";
+                       var value = document.getElementById("user_id").innerText;
+
+                       $.ajax({
+                            type: 'GET',
+                            url: "{{ route('allocate')}}",
+                            headers: {'X-Requested-With': 'XMLHttpRequest'},
+                            data: {
+                                commandes_ids: commandes_ids,
+                                user_id : value
+                            },
+                        }).done(function () { location.reload() }) 
+
+                    }
+                }
                 
             }
         }
         
     }
     
-    @endcan
   dtButtons.push(allocateButton)
   dtButtons.push(deleteButton)
   

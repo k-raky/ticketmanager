@@ -23,10 +23,12 @@
         "laravel/passport": "^10.4.1",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4.5",
+        "neysi/directprint": "^1.0",
         "printnode/printnode-php": "^2.0@RC",
         "rawilk/laravel-printing": "^3.0",
         "setasign/fpdf": "1.8",
         "setasign/fpdi": "^2.3",
+        "smalot/cups-ipp": "^0.5.0",
         "spatie/browsershot": "^3.57",
         "yajra/laravel-datatables-oracle": "^10.0.4"
     },

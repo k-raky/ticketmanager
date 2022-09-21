@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('allocations', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class, 'id_user');
-            $table->integer('id_commande');
+            $table->integer('id_commande')->unique();
             $table->timestamps();
         });
     }

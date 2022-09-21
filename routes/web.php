@@ -4,6 +4,7 @@ use App\Allocation;
 use App\Http\Controllers\Admin\CommandesController;
 use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Admin\AllocationController;
+use App\Http\Controllers\Admin\PrintController;
 use Rawilk\Printing\Facades;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Route;
@@ -40,11 +41,13 @@ Route::get('/download/variantB/{commande_id}', [DownloadController::class, 'down
 Route::get('/download/enveloppeDL/{commande_id}', [DownloadController::class, 'downloadEnveloppeDL'])->name('download.enveloppeDL');
 Route::get('/download/enveloppeC6/{commande_id}', [DownloadController::class, 'downloadEnveloppeC6'])->name('download.enveloppeC6');
 Route::get('/download/bonCommande/{commande_id}', [DownloadController::class, 'downloadBonCommande'])->name('download.bonCommande');
-Route::get('/download/all/{commande_id}/variant/{variant}', [DownloadController::class, 'downloadAll'])->name('download.all');
+Route::get('/download/all/commande_id/{commande_id}/variant/{variant}', [DownloadController::class, 'downloadAll'])->name('download.all');
 
-Route::post('/allocate', [AllocationController::class, 'store'])->name('allocate');
-    
+Route::get('/allocate', [AllocationController::class, 'store'])->name('allocate');
 
+Route::get('/printers', [PrintController::class, 'listPrinters'])->name('printers');
+
+Route::get('/print', [PrintController::class, 'print'])->name('print');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::redirect('/', '/login')->name('home');
@@ -70,8 +73,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('clients', 'ClientsController');
     Route::delete('commandes/destroy', 'CommandesController@massDestroy')->name('commandes.massDestroy');
     Route::resource('commandes', 'CommandesController');
-
-
 
 
 
