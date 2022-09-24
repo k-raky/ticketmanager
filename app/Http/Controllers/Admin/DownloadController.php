@@ -171,7 +171,7 @@ class DownloadController extends Controller
             // If he chooses to put different info on each of the 10 labels
             $j = 2;
             $info = collect();
-            $nb_color_array = 1; // color of labels place in array 
+            $nb_color_array = 1; // place of labels color in array 
 
             //number of blocs
             for ($i=1; $i<=10; $i++) { 

@@ -109,8 +109,8 @@
                       
                             <td>
                                 @foreach ($allocations as $allocation)
-                                    @if ($allocation->id_commande == $commande->id)
-                                        {{ $allocation->id_user}}
+                                    @if ($allocation->commande_id == $commande->id)
+                                        {{ $allocation->user_name}}
                                     @endif
                                 @endforeach
                             </td>
@@ -149,6 +149,10 @@
 @section('scripts')
 @parent
 <script>
+
+let commandes_ids = [];
+
+
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('asset_delete')
@@ -190,62 +194,22 @@
             let selectedRows= dt.rows({selected :true}).data();
             console.log(selectedRows)
             if (selectedRows.length != 0) {   
-                /* var token = "{{csrf_token()}}"
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    method: "POST",
-                    url: config.url,  
-                    data: {
-                        _token : token,
-                        commandes : 'ok',
-                        user_id : 9
-                    },
-                    error: function(jqXHR, textStatus, errorThrown){
-                        console.log(textStatus, errorThrown);
-                    }
-                })  */
-
-                //return location.href = "http://localhost:8000/allocate/commandes/"+selectedRows+"/user_id/9";
-                let commandes_ids = [];
 
                 for (let i = 0; i < selectedRows.length; i++) {
-                    if (!(selectedRows[i][9].includes("cancelled"))) {
-                        commandes_ids.push(selectedRows[i][0]);
+                    if (!(selectedRows[i][10].includes("cancelled"))) {
+                        commandes_ids.push(selectedRows[i][1]);
                     } 
                 }
 
                 if (commandes_ids.length != 0) {
-                    
-                $('#modelListeUsers').modal("show") // relatedTarget
-
-                var list_users = document.getElementsByClassName("list-group-item");
-                for (i = 0; i < list_users.length; i++) {
-                    list_users[i].onclick=function(){ 
-                       list_users[i-1].getElementsByClassName("row")[0].getElementsByClassName("user_id")[0].id="user_id";
-                       var value = document.getElementById("user_id").innerText;
-
-                       $.ajax({
-                            type: 'GET',
-                            url: "{{ route('allocate')}}",
-                            headers: {'X-Requested-With': 'XMLHttpRequest'},
-                            data: {
-                                commandes_ids: commandes_ids,
-                                user_id : value
-                            },
-                        }).done(function () { location.reload() }) 
-
-                    }
+                    $('#modelListeUsers').modal("show") // relatedTarget
                 }
-            }
                 
             }
         }
         
     }
+
     
   dtButtons.push(allocateButton)
   dtButtons.push(deleteButton)
@@ -261,6 +225,24 @@
             .columns.adjust();
     });
 })
+
+    function allocate(obj) {
+        var list_class = obj.className;
+        var user_id = document.getElementsByClassName(list_class)[0].getElementsByClassName("row")[0].getElementsByClassName("user_id")[0].innerText;
+        var user_name = document.getElementsByClassName(list_class)[0].getElementsByClassName("row")[0].getElementsByClassName("user_name")[0].innerText;
+
+       
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('allocate')}}",
+            headers: {'X-Requested-With': 'XMLHttpRequest'},
+            data: {
+                user_id : user_id,
+                user_name : user_name,
+                commandes_ids: commandes_ids,
+            },
+        }).done(function () { location.reload() })
+    }
 
 </script>
 

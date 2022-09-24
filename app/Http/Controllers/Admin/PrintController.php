@@ -22,8 +22,8 @@ class PrintController extends Controller
     public function print(Request $request){
 
         $print = Printing::newPrintTask()
-        ->printer((int) $request->printerId)
-        ->file('/home/raky/Téléchargements/2665_variantB_bloc1.pdf')
+        ->printer((int) $request[''])
+        ->file('/home/raky/Téléchargements/Rapport sur les activités.pdf')
         ->send();
 
         return $print;

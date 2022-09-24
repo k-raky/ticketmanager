@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyAssetRequest;
 use App\Http\Requests\StoreAssetRequest;
 use App\Http\Requests\UpdateAssetRequest;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\makepdfController;

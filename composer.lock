@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3208761d9a8ad2d7170f3243b8417a2c",
+    "content-hash": "48bb4dc1cd601e5b4a52bc554cc3345e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5476,22 +5476,23 @@
         },
         {
             "name": "printnode/printnode-php",
-            "version": "2.0.0-rc1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PrintNode/PrintNode-PHP.git",
-                "reference": "db904ff59438ec630be9bd51a545552d749483b3"
+                "reference": "d5b95f24fc234e3161df09e87e3de538dad22078"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PrintNode/PrintNode-PHP/zipball/db904ff59438ec630be9bd51a545552d749483b3",
-                "reference": "db904ff59438ec630be9bd51a545552d749483b3",
+                "url": "https://api.github.com/repos/PrintNode/PrintNode-PHP/zipball/d5b95f24fc234e3161df09e87e3de538dad22078",
+                "reference": "d5b95f24fc234e3161df09e87e3de538dad22078",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "php": ">=5.3.2"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -5516,9 +5517,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PrintNode/PrintNode-PHP/issues",
-                "source": "https://github.com/PrintNode/PrintNode-PHP/tree/2.0.0-rc1"
+                "source": "https://github.com/PrintNode/PrintNode-PHP/tree/master"
             },
-            "time": "2015-10-26T17:05:04+00:00"
+            "time": "2021-03-04T17:11:43+00:00"
         },
         {
             "name": "psr/cache",
@@ -11876,7 +11877,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "printnode/printnode-php": 5
+        "printnode/printnode-php": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

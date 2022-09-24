@@ -33,18 +33,15 @@ class AllocationController extends Controller
      */
     public function store(Request $request)
     {
-        $commandes_ids = $request->commandes_ids;
         $user_id = $request->user_id;
+        $user_name = $request->user_name;
+        $commandes_ids = $request->commandes_ids;
 
-        $data     = [
-            'responsible' => $user_id,
-        ];
-        
         for ($i=0; $i < count($commandes_ids); $i++) { 
-            Allocation::create([
-                "id_user" => $user_id,
-                "id_commande" => $commandes_ids[$i]
-            ]);
+            Allocation::updateOrCreate(
+                ["commande_id" => $commandes_ids[$i]],
+                ["user_id" => $user_id,"user_name"=>$user_name]
+            );
         }
         
     }

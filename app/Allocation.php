@@ -24,7 +24,8 @@ class Allocation extends Model
     ];
 
     protected $fillable = [
-        'id_user',
-        'id_commande'
+        'user_id',
+        'user_name',
+        'commande_id'
     ];
 }

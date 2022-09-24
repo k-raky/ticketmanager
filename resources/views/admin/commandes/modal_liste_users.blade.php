@@ -17,10 +17,10 @@
                         <div class="col-4 ">Team Id</div>
                     </div>
                     @foreach ($users as $user)
-                        <a class="list-group-item list-group-item-action text-dark">
+                        <a data-dismiss="modal" onclick="allocate(this)" class="list_item{{ $user->id}} list-group-item list-group-item-action text-dark">
                             <div class="row text-center">
                                 <div class="user_id col-4">{{ $user->id}}</div>
-                                <div class="col-4 ">{{ $user->name}}</div>
+                                <div class="user_name col-4 ">{{ $user->name}}</div>
                                 <div class="col-4 ">{{ $user->team_id}}</div>
                             </div>
                         </a>
