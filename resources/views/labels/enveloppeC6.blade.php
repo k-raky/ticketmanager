@@ -50,7 +50,6 @@
             <p>{{ $commande['shipping']->address_1}}</p>
             <p>{{ $commande['shipping']->postcode}} {{ $commande['shipping']->city}}</p>
             <p> {{ $commande['shipping']->country}} </p>
-            <br>
             <p>{{ $commande['number']}}</p>
             <p>{{ $commande['order_key']}}</p>
         </div>

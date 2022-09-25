@@ -7,12 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyAssetRequest;
 use App\Http\Requests\StoreAssetRequest;
 use App\Http\Requests\UpdateAssetRequest;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ClientsController extends Controller
-{ public function index()
+{ 
+    
+    public function index()
     {
         abort_if(Gate::denies('asset_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
