@@ -2,8 +2,6 @@
 @section('content')
 
 
-  
-
       <div class="container-fluid">
         <div class="header-body">
           <div class="row">
@@ -15,14 +13,9 @@
                       <h5 class="card-title text-uppercase text-muted mb-0">En cours</h5>
                       <span class="h2 font-weight-bold mb-0">
                         
-                        
-                        @foreach ($commandes as $commande)
-                        @if($commande->slug=="processing")
-                        {{$commande->total}}
-                        </span>
+                        {{ $commandes->has('processing') ? count($commandes['processing']) : 0 }}
                       
-                       @endif
-                   @endforeach
+                      </span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -43,13 +36,10 @@
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Annulées</h5>
                       <span class="h2 font-weight-bold mb-0">
-                        @foreach ($commandes as $commande)
-                        @if($commande->slug=="cancelled")
-                        {{$commande->total}}
-                        </span>
-                       
-                       @endif
-                   @endforeach
+                        
+                        {{ $commandes->has('canceled') ? count($commandes['canceled']) : 0 }}
+
+                      </span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -70,15 +60,9 @@
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">En attente</h5>
                       <span class="h2 font-weight-bold mb-0">
+                        
+                        {{ $commandes->has('on_hold') ? count($commandes['on_hold']) : 0 }}
                        
-                        @foreach ($commandes as $commande)
-                        @if($commande->slug=="pending")
-                        {{$commande->total}}
-                        </span>
-                       
-                       @endif
-                   @endforeach
-                      
                       </span>
                     </div>
                     <div class="col-auto">
@@ -100,14 +84,9 @@
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Finalisées</h5>
                       <span class="h2 font-weight-bold mb-0">
-                        @foreach ($commandes as $commande)
-                        @if($commande->slug=="completed")
-                        {{$commande->total}}
-                        </span>
-                       
-                       @endif
-                   @endforeach
-                      
+                        
+                        {{ $commandes->has('completed') ? count($commandes['completed']) : 0 }}
+                        
                       </span>
                     </div>
                     <div class="col-auto">
@@ -125,105 +104,6 @@
           </div>
         </div>
       </div>
-
-    @can('user_access')
-      
-    <div class="container-fluid">
-    <div class="card mt-5">
-
-  
-    <div class="card-header text-center"><h5>Statistiques détaillées des commandes</h5> </div>
-    <div class="card-body">
-      <div class="table-responsive">
-      <table class=" table text-center table-bordered table-striped table-hover datatable datatable-Asset">
-        <tbody>
-          <thead>
-            <tr>
-                <th >
-                 ID
-                </th>
-                <th>
-                    Nom
-                </th>
-                <th>
-                  Date d'inscription
-              </th>
-                <th >
-                   
-                    Statut
-
-                </th>
-              
-                <th>
-                  Commandes traitées
-                  </th>
-               
-              
-                <th>
-                   Actions
-                </th>
-            </tr>
-        </thead>
-        </tbody>
-         <tbody>
-          <tbody>
-             <tr>
-             
-                @foreach($users as $key => $user)
-                <tr data-entry-id="{{ $user->id }}">
-                  
-                    <td>
-                        {{ $user->id ?? '' }}
-                    </td>
-                    <td>
-                        {{ $user->name ?? '' }}
-                    </td>
-                     <td>
-                      {{$user->created_at}}
-                     </td>
-                    
-                <td>
-                  @foreach($user->roles as $key => $item)
-                                    <span class="badge badge-info">{{ $item->title }}</span>
-                                @endforeach
-                </td>
-
-                <td>
-                  @php
-                      $total=0;
-                  @endphp
-
-                    @foreach ($commandes_per_user as $commande)
-                      @if ($commande['user_id'] == $user->id)
-                        @php
-                            $total = $commande['total']
-                        @endphp
-                      @endif
-                    @endforeach
-
-                  {{ $total }}
-                </td>
-
-                <td>
-
-                 <a href="#" class="btn btn-primary">Détails</a>
-                </td>    
-              @endforeach
-             
-          
-            
-             </tr>
-
-                    
-         </tbody>
-        
-    </div>
-      
-  </div>
-</div>
-</div>
-
-@endcan
 
 
 @endsection

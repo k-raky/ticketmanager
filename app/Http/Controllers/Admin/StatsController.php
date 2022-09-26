@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin;
+
+use App\Allocation;
 use App\Role;
 use App\Team;
 use App\User;
@@ -14,6 +16,7 @@ use App\Http\Requests\MassDestroyTransactionRequest;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
 use App\Stats;
+use Codexshaper\WooCommerce\Facades\Order;
 use Exception;
 use Codexshaper\WooCommerce\Facades\Report;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -30,11 +33,48 @@ class StatsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {   
 
-    {   $roles = Role::all(); 
-        $users = User::all();
-        $commandes = Report::orders();
-        return view('admin.commandes.stats',compact('commandes','users','roles'));
+        $authenticated_user = auth()->user();
+        
+        if($authenticated_user->team_id != NULL){
+
+            $commandes = collect();
+            $allocations = Allocation::where('user_id', $authenticated_user->id)->get();
+            foreach ($allocations as $allocation) {
+                $order = Order::find($allocation->commande_id);
+                $commandes->push((object)$order);
+            }
+            
+            $commandes = $commandes->groupBy('status');
+
+            return view('user.stats',compact('commandes'));
+
+        }
+        else {
+
+            $roles = Role::all(); 
+            $users = User::all();
+            $commandes = Report::orders();
+
+
+            $allocations = Allocation::all()->groupBy('user_id');
+            $commandes_completed = Order::whereStatus('processing')->get();
+            $commandes_per_user = collect();
+
+            foreach ($allocations as $user_id => $user_allocation ) {
+                $count=0;
+                foreach ($user_allocation as $allocation) {
+                    if ($commandes_completed->where('id',$allocation->commande_id)->count()>0) {
+                        $count++;
+                    } 
+                }
+                $commandes_per_user->push(['user_id'=>$user_id, 'total' => $count]);
+            }
+
+            return view('admin.commandes.stats',compact('commandes','users','roles', 'commandes_per_user'));
+        }
+
     }
 
   
