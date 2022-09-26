@@ -21,11 +21,11 @@
         .sender {
             text-transform: uppercase;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 12px;
+            font-size: 10px;
         }
         .recipient {
             text-transform: uppercase;
-            font-size: 12px;
+            font-size: 10px;
             font-family: 'Courier New', Courier, monospace;
             align-self: flex-end;
             text-align: right
@@ -42,7 +42,11 @@
           
             <p>{{ $commande['meta_data'][8]->value->shop_name->default }}</p>
             <p>{{ $commande['meta_data'][8]->value->shop_address->default }}</p>
-            <p>{{ $commande['meta_data'][8]->value->footer->default }}</p>
+            @php
+                $contact = explode("-",$commande['meta_data'][8]->value->footer->default);
+            @endphp
+            <p>{{ $contact[0] }}</p>
+            <p>{{ $contact[1] }}</p>
                
         </div>
         <div class="recipient">

@@ -16,25 +16,32 @@ use App\Http\Controllers\makepdfController;
 use App\User;
 
 class CommandesController extends Controller
-{ public function index()
+{ 
+    
+    public function index()
     {
        abort_if(Gate::denies('asset_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $commandes = Order::all();
+        $user = auth()->user();
+        
+        if($user->team_id != NULL){
+            $commandes = array();
+            $allocations = Allocation::where('user_id', $user->id)->get();
+            foreach ($allocations as $allocation) {
+                $order = (Order::find($allocation->commande_id))->toArray();
+                array_push($commandes, (object)$order);
+            }
+            
+            $commandes = collect($commandes);
+        }
+        else {
+            $commandes = Order::all();
+            $allocations = Allocation::all();
+        } 
+
         $users = User::all();
-        $allocations = Allocation::all();
 
         return view('admin.commandes.index', compact('commandes', 'users', 'allocations'));
-    }
-
-    public function showModalListeUsers(Request $request)
-    {
-        abort_if(Gate::denies('asset_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $users = User::all();
-        $commandes_ids = $request->commandes_ids;
-
-        return view('admin.commandes.modal_liste_users', compact('commandes_ids', 'users'));
     }
 
 

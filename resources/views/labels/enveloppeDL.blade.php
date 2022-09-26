@@ -40,7 +40,11 @@
         <div class="sender">
             <p>{{ $commande['meta_data'][8]->value->shop_name->default }}</p>
             <p>{{ $commande['meta_data'][8]->value->shop_address->default }}</p>
-            <p>{{ $commande['meta_data'][8]->value->footer->default }}</p>
+            @php
+                $contact = explode("-",$commande['meta_data'][8]->value->footer->default);
+            @endphp
+            <p>{{ $contact[0] }}</p>
+            <p>{{ $contact[1] }}</p>
         </div>
         <div class="recipient">
             <p>{{ $commande['shipping']->first_name}} {{ $commande['shipping']->last_name}}</p>

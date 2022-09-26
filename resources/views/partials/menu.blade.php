@@ -69,7 +69,7 @@
                 </a>
             </li>
         @endcan
-        @can('transaction_access')
+        {{-- @can('transaction_access')
         <li class="nav-item">
             <a href="{{ route("admin.clients.index") }}" class="nav-link {{ request()->is('admin/clients') || request()->is('admin/clients/*') ? 'active' : '' }}">
                 <i class="fa-fw fa fa-users nav-icon">
@@ -78,7 +78,7 @@
                 Clients
             </a>
         </li>
-    @endcan
+    @endcan --}}
    
 @can('transaction_access')
 <li class="nav-item">
@@ -91,14 +91,14 @@
 </li>
 @endcan
 @can('transaction_access')
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a href="{{ route("imprimer") }}" class="nav-link {{ request()->is('admin/imprimer') || request()->is('admin/stats/*') ? 'active' : '' }}">
         <i class="fa-fw fa fa-print nav-icon">
 
         </i>
         Impression
     </a>
-</li>
+</li> --}}
     @can('profile_password_edit')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->is('profile/password') || request()->is('profile/password/*') ? 'active' : '' }}" href="{{ route('profile.password.edit') }}">

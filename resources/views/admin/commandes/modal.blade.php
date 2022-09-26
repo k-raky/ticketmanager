@@ -45,7 +45,7 @@
 
                 @if ($count > 1)
                     {{-- If he chose different colors for the labels, we download all with variant B --}}
-                    <a role="button" class="btn btn-outline-danger h-50" data-dismiss="modal" href="{{route('download.all', ['commande_id'=>$commande->id, 'variant'=>'B'])}}" >Tout Telecharger</a>
+                    <a role="button" class="btn btn-outline-danger h-50" href="{{route('download.all', ['commande_id'=>$commande->id, 'variant'=>'B'])}}" >Tout Telecharger</a>
                 @else
                     {{-- If he chose the same color for the labels, we download all and he chooses between variant A and B --}}
                     <a role="button" class="btn btn-outline-danger h-50" data-dismiss="modal" data-toggle="modal" data-target="#modelVariants_All_{{ $commande->id}}">Tout Telecharger</a>

@@ -29,9 +29,11 @@
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed pace-done sidebar-lg-show">
     <header class="app-header navbar">
+      
         <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <a class="navbar-brand" href="#">
             <span class="navbar-brand-full">Just-Save-It</span>
             <span class="navbar-brand-minimized">Just-Save-It</span>
@@ -54,8 +56,13 @@
                 </li>
             @endif
 
-
         </ul>
+
+        <div class="d-flex mr-4 h-100 align-items-center justify-content-evenly flex-direction-row align-self-end">
+          <i class="fas fa-user-circle  fa-2x text-info m-2"></i>
+          <p class="font-large m-0">{{ Auth::user()->name }}</p>
+        </div>
+
     </header>
 
     <div class="app-body">

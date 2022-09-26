@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
+use Haruncpi\LaravelUserActivity\Traits\Loggable;
 
 class Stock extends Model
 {         
-    
+    use Loggable;
     use SoftDeletes, MultiTenantModelTrait, HasFactory;
 
     public $table = 'stocks';

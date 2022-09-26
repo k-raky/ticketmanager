@@ -5,9 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
+use Haruncpi\LaravelUserActivity\Traits\Loggable;
 
 class Permission extends Model
 {
+    use Loggable;
     use SoftDeletes;
 
     public $table = 'permissions';

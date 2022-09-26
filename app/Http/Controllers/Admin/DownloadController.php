@@ -96,8 +96,10 @@ class DownloadController extends Controller
             $view = view('labels.variantA', ['info'=> $info])->render();
             header("Content-type: text/html");
 
-            self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_variantA_bloc1.pdf');
-            self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_variantA_bloc2.pdf');
+            $color_etiquette = $commande['line_items'][0]->meta_data[0]->value[1]->value;
+
+            self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_'.$color_etiquette.'_variantA_bloc1.pdf');
+            self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_'.$color_etiquette.'_variantA_bloc2.pdf');
 
         } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
 
@@ -126,7 +128,10 @@ class DownloadController extends Controller
 
                 $view = view('labels.variantA', ['data'=> $data])->render();
                 header("Content-type: text/html");
-                self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_variantA_bloc'.$numero_variant.'.pdf');
+
+                $color_etiquette = $commande['line_items'][0]->meta_data[0]->value[1]->value;
+
+                self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_'.$color_etiquette.'_variantA_bloc'.$numero_variant.'.pdf');
 
             }
 
@@ -259,7 +264,6 @@ class DownloadController extends Controller
             default:
                 break;
         }
-        
 
         return redirect('/');
 
