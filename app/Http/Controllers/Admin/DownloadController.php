@@ -42,6 +42,8 @@ class DownloadController extends Controller
 
         $browserFactory = new BrowserFactory();
         $browser = $browserFactory->createBrowser();
+
+        $downloadedFilePath = getenv('HOMEDRIVE').getenv('HOMEPATH').'/Téléchargements/doc.pdf';
             
             try {
                 // creates a new page and navigate to an URL
@@ -61,7 +63,19 @@ class DownloadController extends Controller
                     'paperWidth' => $width]
                     )->saveToFile($downloadedFilePath);
 
+                
 
+                /*     // or directly output pdf without saving
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/pdf');
+                header('Content-Disposition: inline; filename=filename.pdf');
+                header('Content-Transfer-Encoding: binary');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+                header('Pragma: public');
+
+                echo base64_decode($pdf->getBase64()); */
+                
             } finally {
                 // bye
                 $browser->close();

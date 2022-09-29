@@ -59,7 +59,7 @@ class StatsController extends Controller
 
 
             $allocations = Allocation::all()->groupBy('user_id');
-            $commandes_completed = Order::whereStatus('processing')->get();
+            $commandes_completed = Order::whereStatus('completed')->get();
             $commandes_per_user = collect();
 
             foreach ($allocations as $user_id => $user_allocation ) {
