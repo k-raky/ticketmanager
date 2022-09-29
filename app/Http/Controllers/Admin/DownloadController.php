@@ -43,7 +43,7 @@ class DownloadController extends Controller
         $browserFactory = new BrowserFactory();
         $browser = $browserFactory->createBrowser();
 
-        $downloadedFilePath = getenv('HOMEDRIVE').getenv('HOMEPATH').'/Téléchargements/doc.pdf';
+        $downloadedFilePath = getenv('HOMEPATH').'/Téléchargements/doc.pdf';
             
             try {
                 // creates a new page and navigate to an URL
