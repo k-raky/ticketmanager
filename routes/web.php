@@ -24,6 +24,8 @@ Route::get('/home', function () {
 Auth::routes(['register' => false]);
 // Admin
 
+Route::middleware(['auth'])->group(function () {
+
 Route::get('/imprimer','App\Http\Controllers\PrintersController@index')->name('imprimer');
 
 Route::get('/logout',);
@@ -48,6 +50,7 @@ Route::get('/printers', [PrintController::class, 'listPrinters'])->name('printer
 
 Route::post('/print', [PrintController::class, 'print'])->name('print');
 
+});
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::redirect('/', '/login')->name('home');

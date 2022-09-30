@@ -10,14 +10,14 @@
     <style type="text/css">
         .variants {
             position: absolute;
-            width: 80mm;
-            height: 54mm;
+            width: 79mm;
+            height: 53mm;
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
             align-items: center;
             padding-left: 2mm;
-            padding-right: 2mm;
+            padding-right: 1mm;
         }
         .variant-text {
             text-align :center;  

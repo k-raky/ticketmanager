@@ -10,8 +10,8 @@
     <style>
         .bon {
             position: absolute;
-            width: 200mm;
-            height: 100mm;
+            width: 199mm;
+            height: 99mm;
             display: flex;
             justify-content: center;
             align-items: center;

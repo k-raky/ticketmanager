@@ -136,9 +136,11 @@
     <div class="card-body">
       <div class="table-responsive">
       <table class=" table text-center table-bordered table-striped table-hover datatable datatable-Asset">
-        <tbody>
           <thead>
             <tr>
+              <th width="10">
+
+                </th>
                 <th >
                  ID
                 </th>
@@ -159,19 +161,21 @@
                   </th>
                
               
-                <th>
+                <!-- <th>
                    Actions
-                </th>
+                </th> -->
             </tr>
         </thead>
-        </tbody>
-         <tbody>
+        
           <tbody>
-             <tr>
              
                 @foreach($users as $key => $user)
+
                 <tr data-entry-id="{{ $user->id }}">
-                  
+
+                  <td>
+
+                  </td>
                     <td>
                         {{ $user->id ?? '' }}
                     </td>
@@ -204,22 +208,23 @@
                   {{ $total }}
                 </td>
 
-                <td>
+                <!-- <td>
 
                  <a href="#" class="btn btn-primary">Détails</a>
-                </td>    
-              @endforeach
-             
-          
-            
-             </tr>
+                </td>  -->   
 
-                    
+              </tr>
+              
+              @endforeach
+          
+           
          </tbody>
+</table>
         
     </div>
       
   </div>
+</div>
 </div>
 </div>
 
@@ -228,6 +233,26 @@
 
 @endsection
 
+@section('scripts')
+@parent
+<script>
+    $(function () {
+  let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
+
+
+  $.extend(true, $.fn.dataTable.defaults, {
+    order: [[ 1, 'desc' ]],
+    pageLength: 100,
+  });
+  $('.datatable-Asset:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust();
+    });
+})
+
+</script>
+@endsection
 
 
 <style>

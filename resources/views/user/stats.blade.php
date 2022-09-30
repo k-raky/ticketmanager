@@ -37,7 +37,7 @@
                       <h5 class="card-title text-uppercase text-muted mb-0">Annulées</h5>
                       <span class="h2 font-weight-bold mb-0">
                         
-                        {{ $commandes->has('canceled') ? count($commandes['canceled']) : 0 }}
+                        {{ $commandes->has('cancelled') ? count($commandes['canceled']) : 0 }}
 
                       </span>
                     </div>

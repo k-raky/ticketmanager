@@ -9,6 +9,7 @@ use JonnyW\PhantomJs\Client;
 use HeadlessChromium\BrowserFactory;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Codexshaper\WooCommerce\Facades\Order;
+use ZipArchive;
 
 class DownloadController extends Controller
 {
@@ -38,13 +39,12 @@ class DownloadController extends Controller
         return view('labels.bonCommande');
     }
 
-    function downloadToPDF($width, $height, $view, $downloadedFilePath){
+
+    function downloadFileToPDF($width, $height, $view, $fileName){
 
         $browserFactory = new BrowserFactory();
         $browser = $browserFactory->createBrowser();
 
-        $downloadedFilePath = getenv('HOMEPATH').'/Téléchargements/doc.pdf';
-            
             try {
                 // creates a new page and navigate to an URL
                 $page = $browser->createPage();
@@ -63,21 +63,20 @@ class DownloadController extends Controller
                     'paperWidth' => $width]
                 );
 
-                 //   ->saveToFile($downloadedFilePath);
+                //   ->saveToFile($downloadedFilePath);
 
                 $decoded = base64_decode($pdf->getBase64());
-                $file = 'doc.pdf';
-                file_put_contents($file, $decoded);
+                file_put_contents($fileName, $decoded);
 
-                    // or directly output pdf without saving
-                    header('Content-Description: File Transfer');
-                    header('Content-Type: application/octet-stream');
-                    header('Content-Disposition: attachment; filename="'.basename($file).'"');
-                    header('Expires: 0');
-                    header('Cache-Control: must-revalidate');
-                    header('Pragma: public');
-                    header('Content-Length: ' . filesize($file));
-                    readfile($file);
+                // or directly output pdf without saving
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename="'.basename($fileName).'"');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate');
+                header('Pragma: public');
+                header('Content-Length: ' . filesize($fileName));
+                readfile($fileName);
                 
             } finally {
                 // bye
@@ -85,7 +84,60 @@ class DownloadController extends Controller
             }
     }
 
-    /* function downloadToPDF($width, $height, $view, $downloadedFilePath, $data){
+    function downloadZipFileToPDF($width, $height, $view, $files, $zipFileName){
+
+        $browserFactory = new BrowserFactory();
+        $browser = $browserFactory->createBrowser();
+
+            try {
+
+                $zipFile = new ZipArchive;
+                $zipFile->open($zipFileName, ZipArchive::CREATE);
+
+                foreach ($files as $file) {
+                    // creates a new page and navigate to an URL
+                    $page = $browser->createPage();
+                    $page->setHtml($view, 300000);
+
+                    // screenshot - Say "Cheese"! 😄
+                // $page->screenshot()->saveToFile($downloadedFilePath);
+
+                    $pdf = $page->pdf([
+                        'preferCSSPageSize'   => true,             // default to false (reads parameters directly from @page)
+                        'marginTop'           => 0.0,              // defaults to ~0.4 (must be a float, value in inches)
+                        'marginBottom'        => 0.0,              // defaults to ~0.4 (must be a float, value in inches)
+                        'marginLeft'          => 0.0,              // defaults to ~0.4 (must be a float, value in inches)
+                        'marginRight'         => 0.0,
+                        'paperHeight' => $height,
+                        'paperWidth' => $width]
+                    );
+
+                    //   ->saveToFile($downloadedFilePath);
+
+                    $decoded = base64_decode($pdf->getBase64());
+                    file_put_contents($file, $decoded);
+
+                    $zipFile->addFile($file);
+                }
+                $zipFile->close(); 
+
+                // or directly output pdf without saving
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename="'.basename($zipFileName).'"');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate');
+                header('Pragma: public');
+                header('Content-Length: ' . filesize($zipFileName));
+                readfile($zipFileName);
+                
+            } finally {
+                // bye
+                $browser->close();
+            }
+    }
+
+    /* function downloadFileToPDF($width, $height, $view, $downloadedFilePath, $data){
         $pdf = Pdf::setOption(['isRemoteEnabled' => true, 'dpi'=>150])->loadView($view, $data)->setPaper(array(0,0,227.62204724,236.15787402), 'portrait')->save('/home/raky/Documents/Work/JSIT/variantA_bloc1.pdf');
         return $pdf->download();
     } */
@@ -95,6 +147,7 @@ class DownloadController extends Controller
         //return view('labels.variantA', ['commande'=> $commande]);
         
         $commande = Order::find($commande_id);
+        $files = array();
 
         if (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit gleichen Informationen FR") {
 
@@ -115,8 +168,7 @@ class DownloadController extends Controller
 
             $color_etiquette = $commande['line_items'][0]->meta_data[0]->value[1]->value;
 
-            self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_'.$color_etiquette.'_variantA_bloc1.pdf');
-            self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_'.$color_etiquette.'_variantA_bloc2.pdf');
+            array_push($files, $commande_id.'_'.$color_etiquette.'_variantA_bloc1.pdf', $commande_id.'_'.$color_etiquette.'_variantA_bloc2.pdf');
 
         } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
 
@@ -148,11 +200,13 @@ class DownloadController extends Controller
 
                 $color_etiquette = $commande['line_items'][0]->meta_data[0]->value[1]->value;
 
-                self::downloadToPDF(3.1496062992, 3.2677165354, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_'.$color_etiquette.'_variantA_bloc'.$numero_variant.'.pdf');
+                array_push($files, $commande_id.'_'.$color_etiquette.'_variantA_bloc'.$numero_variant.'.pdf');
 
             }
-
+                
         }
+
+        self::downloadZipFileToPDF(3.1496062992, 3.2677165354, $view, $files, $commande_id.'_variantA.zip');
                 
         return redirect('/');
 
@@ -161,6 +215,8 @@ class DownloadController extends Controller
     public function downloadVariantB($commande_id){
 
         $commande = Order::find($commande_id);
+
+        $files = array();
 
         if (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit gleichen Informationen FR") {
             // If he chooses to put the same info on all the 10 labels
@@ -180,13 +236,15 @@ class DownloadController extends Controller
             header("Content-type: text/html");
     
             $color_etiquette_1 = $commande['line_items'][0]->meta_data[0]->value[1]->value;
-            self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_'.$color_etiquette_1.'_variantB_bloc1.pdf');
+
+            array_push($files, $commande_id.'_'.$color_etiquette_1.'_variantB_bloc1.pdf');
+
             $nb_color_array = 5;
 
             for ($i=2; $i<=10; $i++) { 
                 $nb_color_array++;
                 $color_etiquette = $commande['line_items'][0]->meta_data[0]->value[$nb_color_array]->value;
-                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_'.$color_etiquette.'_variantB_bloc'.$i.'.pdf');
+                array_push($files, $commande_id.'_'.$color_etiquette.'_variantB_bloc'.$i.'.pdf');
             }
 
         } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
@@ -212,13 +270,15 @@ class DownloadController extends Controller
 
                 $color_etiquette = $commande['line_items'][0]->meta_data[0]->value[$nb_color_array]->value;
 
-                self::downloadToPDF(3.1496062992, 2.125984252, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_'.$color_etiquette.'_variantB_bloc'.$i.'.pdf');
+                array_push($files, $commande_id.'_'.$color_etiquette.'_variantB_bloc'.$i.'.pdf');
 
                 $j++;
                 $nb_color_array+=5;
             }
 
         }
+
+        self::downloadZipFileToPDF(3.1496062992, 2.125984252, $view, $files, $commande_id.'_VariantB.zip');
 
         return redirect('/');
          
@@ -231,7 +291,7 @@ class DownloadController extends Controller
         $view = view('labels.enveloppeDL', ['commande'=> $commande])->render();
         header("Content-type: text/html");
 
-        self::downloadToPDF(8.6614173228, 4.3307086614, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_enveloppeDL.pdf');
+        self::downloadFileToPDF(8.6614173228, 4.3307086614, $view, $commande_id.'_enveloppeDL.pdf');
         
         return redirect('/');
                 
@@ -244,7 +304,7 @@ class DownloadController extends Controller
         $view = view('labels.enveloppeC6', ['commande'=> $commande])->render();
         header("Content-type: text/html");
 
-        self::downloadToPDF(4.7244094488, 3.1496062992, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_enveloppeC6.pdf');
+        self::downloadFileToPDF(4.7244094488, 3.1496062992, $view, $commande_id.'_enveloppeC6.pdf');
         
         return redirect('/');
                 
@@ -257,7 +317,7 @@ class DownloadController extends Controller
         $view = view('labels.bonCommande', ['commande'=> $commande])->render();
         header("Content-type: text/html");
 
-        self::downloadToPDF(7.874015748, 3.937007874, $view, '/home/raky/Documents/Work/JSIT/'.$commande_id.'_bonCommande.pdf');
+        self::downloadFileToPDF(7.874015748, 3.937007874, $view, $commande_id.'_bonCommande.pdf');
         
         return redirect('/');
                 
