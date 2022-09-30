@@ -32,11 +32,6 @@ Route::get('/logout',);
 
 Route::get('/stats','App\Http\Controllers\Admin\StatsController@index')->name('admin.commandes.stats');
 
-Route::get('/variantA', [DownloadController::class, 'variantA']);
-Route::get('/variantB', [DownloadController::class, 'variantB']);
-Route::get('/enveloppeDL', [DownloadController::class, 'enveloppeDL']);
-Route::get('/enveloppeC6', [DownloadController::class, 'enveloppeC6']);
-Route::get('/bon', [DownloadController::class, 'bon']);
 Route::get('/download/variantA/{commande_id}', [DownloadController::class, 'downloadVariantA'])->name('download.variantA');
 Route::get('/download/variantB/{commande_id}', [DownloadController::class, 'downloadVariantB'])->name('download.variantB');
 Route::get('/download/enveloppeDL/{commande_id}', [DownloadController::class, 'downloadEnveloppeDL'])->name('download.enveloppeDL');
