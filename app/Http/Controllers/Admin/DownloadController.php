@@ -9,6 +9,8 @@ use JonnyW\PhantomJs\Client;
 use HeadlessChromium\BrowserFactory;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Codexshaper\WooCommerce\Facades\Order;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 
 class DownloadController extends Controller
@@ -59,28 +61,49 @@ class DownloadController extends Controller
         header('Pragma: public');
         header('Content-Length: ' . filesize($file));
         readfile($file);
+
+        File::delete($file);
     }
 
-    function downloadZipFileToPDF($width, $height, $files, $zipFileName){
+    function downloadZipFileToPDF($files, $zipFileName, $variant=''){
 
         $zipFile = new ZipArchive;
         $zipFile->open($zipFileName, ZipArchive::CREATE);
 
-        foreach ($files as $fileName) {
-            $file = self::createPDF($width, $height, $fileName['view'], $fileName['filename']);
-            $zipFile->addFile($file);
+        foreach ($files as $file) {
+            if (is_array($file)) {
+                foreach ($file as $value) {
+                    $zipFile->addFile($value, 'variant'.$variant.'/'.$value);       
+                }
+            }
+            else {
+                $zipFile->addFile($file);   
+            }
         }
+
         $zipFile->close(); 
 
-        self::download($zipFile);
+        foreach ($files as $file) {
+            if (is_array($file)) {
+                foreach ($file as $value) {
+                    File::delete($value);
+                }
+            }
+            else {
+                File::delete($file);
+            }
+        }
+
+        self::download($zipFileName);
         
     }
 
 
-    public function downloadVariantA($commande_id, $all){
+    public function downloadVariantA($commande_id, $all=false){
 
         $commande = Order::find($commande_id);
-        $files = array();
+        $files_data = array();
+        $pdf_files = array();
 
         if (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit gleichen Informationen FR") {
             // If he chooses to put the same info on all the 10 labels
@@ -100,8 +123,8 @@ class DownloadController extends Controller
 
             $color_etiquette = $commande['line_items'][0]->meta_data[0]->value[1]->value;
 
-            array_push($files, ['filename' => $commande_id.'_'.$color_etiquette.'_variantA_bloc1.pdf','view' => $view]);
-            array_push($files, ['filename' => $commande_id.'_'.$color_etiquette.'_variantA_bloc2.pdf','view' => $view]);
+            array_push($files_data, ['filename' => $commande_id.'_'.$color_etiquette.'_variantA_bloc1.pdf','view' => $view]);
+            array_push($files_data, ['filename' => $commande_id.'_'.$color_etiquette.'_variantA_bloc2.pdf','view' => $view]);
 
         } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
             // If he chooses to put different info on each of the 10 labels
@@ -130,29 +153,31 @@ class DownloadController extends Controller
                 header("Content-type: text/html");
 
                 $color_etiquette = $commande['line_items'][0]->meta_data[0]->value[1]->value;
-                array_push($files, ['filename' => $commande_id.'_'.$color_etiquette.'_variantA_bloc'.$numero_variant.'.pdf','view' => $view]);
+                array_push($files_data, ['filename' => $commande_id.'_'.$color_etiquette.'_variantA_bloc'.$numero_variant.'.pdf','view' => $view]);
             }
                 
         }
 
+
+        foreach ($files_data as $fileName) {
+            $file = self::createPDF(3.1496062992, 3.2677165354, $fileName['view'], $fileName['filename']);
+            array_push($pdf_files, $file);
+        }
+
         if ($all) {
-            return array([
-                'width' => 3.1496062992, 
-                'height'=> 3.2677165354,
-                'files' => $files,
-                'filename' => 'variantA'
-            ]);
+            return $pdf_files;
         } else {
-            self::downloadZipFileToPDF(3.1496062992, 3.2677165354, $files, $commande_id.'_variantA.zip');
+            self::downloadZipFileToPDF($pdf_files, $commande_id.'_variantA.zip');
             return redirect('/');
         }
 
     }
 
-    public function downloadVariantB($commande_id, $all){
+    public function downloadVariantB($commande_id, $all=false){
 
         $commande = Order::find($commande_id);
-        $files = array();
+        $files_data = array();
+        $pdf_files = array();
 
         if (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit gleichen Informationen FR") {
             // If he chooses to put the same info on all the 10 labels
@@ -171,14 +196,14 @@ class DownloadController extends Controller
             header("Content-type: text/html");
     
             $color_etiquette_1 = $commande['line_items'][0]->meta_data[0]->value[1]->value;
-            array_push($files, ['filename' => $commande_id.'_'.$color_etiquette_1.'_variantB_bloc1.pdf', 'view' => $view]);
+            array_push($files_data, ['filename' => $commande_id.'_'.$color_etiquette_1.'_variantB_bloc1.pdf', 'view' => $view]);
 
             $nb_color_array = 5;
 
             for ($i=2; $i<=10; $i++) { 
                 $nb_color_array++;
                 $color_etiquette = $commande['line_items'][0]->meta_data[0]->value[$nb_color_array]->value;
-                array_push($files, ['filename' => $commande_id.'_'.$color_etiquette.'_variantB_bloc'.$i.'.pdf', 'view' => $view]);
+                array_push($files_data, ['filename' => $commande_id.'_'.$color_etiquette.'_variantB_bloc'.$i.'.pdf', 'view' => $view]);
             }
 
         } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
@@ -203,22 +228,22 @@ class DownloadController extends Controller
                 header("Content-type: text/html");
 
                 $color_etiquette = $commande['line_items'][0]->meta_data[0]->value[$nb_color_array]->value;
-                array_push($files, ['filename' => $commande_id.'_'.$color_etiquette.'_variantB_bloc'.$i.'.pdf', 'view' => $view]);
+                array_push($files_data, ['filename' => $commande_id.'_'.$color_etiquette.'_variantB_bloc'.$i.'.pdf', 'view' => $view]);
 
                 $j++;
                 $nb_color_array+=5;
             }
         }
 
+        foreach ($files_data as $fileName) {
+            $file = self::createPDF(3.1496062992, 2.125984252, $fileName['view'], $fileName['filename']);
+            array_push($pdf_files, $file);
+        }
+
         if ($all) {
-            return array([
-                'width' => 3.1496062992, 
-                'height'=> 2.125984252,
-                'view' => $files,
-                'filename' => 'variantB'
-            ]);
+            return $pdf_files;
         } else {
-            self::downloadZipFileToPDF(3.1496062992, 2.125984252, $files, $commande_id.'_VariantB.zip');
+            self::downloadZipFileToPDF($pdf_files, $commande_id.'_VariantB.zip');
             return redirect('/');
         }
          
@@ -237,7 +262,7 @@ class DownloadController extends Controller
         if ($all) {
             return $file;
         } else {
-            self::download($file);
+            self::download($file, $file);
             return redirect('/');
         }
                 
@@ -263,18 +288,18 @@ class DownloadController extends Controller
 
         switch ($variant) {
             case 'A':
-                $variantA_info = self::downloadVariantA($commande_id, true);   
+                $variant_files = self::downloadVariantA($commande_id, true);   
                 break;
             case 'B':
-                $variantB_info = self::downloadVariantB($commande_id, true);
+                $variant_files = self::downloadVariantB($commande_id, true);
                 break;
             default:
                 break;
         }
 
-        $zipfiles = array($enveloppeC6_file, $enveloppeDL_file, $bon_file);
-
-        dd($zipfiles);
+        $pdf_files = array($variant_files,$enveloppeC6_file, $enveloppeDL_file, $bon_file);
+        
+        self::downloadZipFileToPDF($pdf_files, $commande_id.'_All.zip', $variant);
 
         return redirect('/');
 
