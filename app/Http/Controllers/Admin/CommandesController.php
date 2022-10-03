@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\makepdfController;
 use App\User;
+use Illuminate\Support\Facades\DB;
+
 
 class CommandesController extends Controller
 { 
@@ -23,8 +25,9 @@ class CommandesController extends Controller
        abort_if(Gate::denies('asset_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $user = auth()->user();
-        
-        if($user->team_id != NULL){
+        $user_role = DB::select('select role_id from role_user where user_id = ?', [$user->id]);
+
+        if($user_role[0]->role_id != 1){
             $commandes = array();
             $allocations = Allocation::where('user_id', $user->id)->get();
             foreach ($allocations as $allocation) {

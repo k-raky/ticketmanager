@@ -22,6 +22,7 @@ use Codexshaper\WooCommerce\Facades\Report;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 
@@ -34,13 +35,13 @@ class StatsController extends Controller
      */
     public function index()
     {   
+        $user = auth()->user();
+        $user_role = DB::select('select role_id from role_user where user_id = ?', [$user->id]);
 
-        $authenticated_user = auth()->user();
-        
-        if($authenticated_user->team_id != NULL){
+        if($user_role[0]->role_id != 1){
 
             $commandes = collect();
-            $allocations = Allocation::where('user_id', $authenticated_user->id)->get();
+            $allocations = Allocation::where('user_id', $user->id)->get();
             foreach ($allocations as $allocation) {
                 $order = Order::find($allocation->commande_id);
                 $commandes->push((object)$order);

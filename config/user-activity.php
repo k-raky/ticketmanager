@@ -13,10 +13,10 @@ return [
 
     'log_events' => [
         'on_login' => true,
-        'on_edit'  => true,
+        'on_edit'  => false,
         'on_delete'  => true,
-        'on_login'  => true,
-        'on_lockout'  => true,
+        'on_login'  => false,
+        'on_lockout'  => false,
     ]
 ];
 

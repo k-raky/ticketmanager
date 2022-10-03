@@ -58,7 +58,7 @@
                                 {{ $user->email ?? '' }}
                             </td>
                             <td>
-                                {{ $user->email_verified_at ?? '' }}
+                                {{ $user->created_at ?? '' }}
                             </td>
                             <td>
                                 @foreach($user->roles as $key => $item)

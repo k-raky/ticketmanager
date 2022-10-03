@@ -9,6 +9,11 @@
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered table-striped table-hover datatable datatable-Asset text-center align-middle">
+
+                @if ($commandes->isEmpty())
+                        <p class="text-center mx-auto" style="font-size: large; font-weight :lighter; color :gray">Pas de commandes</p> 
+                @else
+
                 <thead>
                     <tr>
                         <th>
@@ -60,7 +65,9 @@
                     </tr>
                 </thead>
                 <tbody>
+                     
                     @foreach($commandes as $commande)
+
                         <tr data-entry-id="{{ $commande->id}}">
 
                             <td class="align-middle text-center">
@@ -120,9 +127,12 @@
                             
                                 @can('asset_edit')
 
-                                <a class="btn btn-xs btn-info text-light" data-toggle="modal" data-target="#modelTelecharger{{ $commande->id}}">
-                                    Télécharger
-                                </a>
+                                    @if ($commande->status == 'processing')
+                                        <a class="btn btn-xs btn-info text-light" data-toggle="modal" data-target="#modelTelecharger{{ $commande->id}}">
+                                            Télécharger
+                                        </a>
+                                    @endif
+
                             @endcan
 
 
@@ -133,6 +143,9 @@
                         @include('admin.commandes.modal')
                         
                     @endforeach
+   
+                    @endif
+
                 </tbody>
             </table>
         </div>

@@ -12,16 +12,14 @@
             <div class="modal-body">
                 <div class="list-group">
                     <div class="row text-center text-info">
-                        <div class="col-4 ">Id</div>
-                        <div class="col-4 ">Nom</div>
-                        <div class="col-4 ">Team Id</div>
+                        <div class="col-6 ">Id</div>
+                        <div class="col-6 ">Nom</div>
                     </div>
                     @foreach ($users as $user)
                         <a data-dismiss="modal" onclick="allocate(this)" class="list_item{{ $user->id}} list-group-item list-group-item-action text-dark">
                             <div class="row text-center">
-                                <div class="user_id col-4">{{ $user->id}}</div>
-                                <div class="user_name col-4 ">{{ $user->name}}</div>
-                                <div class="col-4 ">{{ $user->team_id}}</div>
+                                <div class="user_id col-6">{{ $user->id}}</div>
+                                <div class="user_name col-6 ">{{ $user->name}}</div>
                             </div>
                         </a>
                     @endforeach
