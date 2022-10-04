@@ -77,6 +77,6 @@ class AllocationController extends Controller
      */
     public function destroy(Allocation $allocation)
     {
-        //
+        
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Allocation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
@@ -62,6 +63,8 @@ class UsersController extends Controller
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
 
+        Allocation::where('user_id', $user->id)->update(['user_name'=>$user->name]);
+
         return redirect()->route('admin.users.index');
 
     }
@@ -79,6 +82,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        Allocation::where('user_id', $user->id)->delete();
         $user->delete();
 
         return back();
