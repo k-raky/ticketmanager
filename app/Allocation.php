@@ -14,7 +14,7 @@ class Allocation extends Model
 {
     use Loggable;
     use HasFactory;
-    use SoftDeletes, Notifiable, HasApiTokens, HasFactory;
+    use Notifiable, HasApiTokens, HasFactory;
 
     public $table = 'allocations';
 
