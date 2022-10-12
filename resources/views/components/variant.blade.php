@@ -9,7 +9,7 @@
                 <p>Merci de me contacter</p>
             </div>
         </div>
-        <div class="variant-text" style="height: 50%; width:100%; border-top-width: 0.1px;border-top-style:dashed;">
+        <div class="variant-text" style="height: 50%; width:100%;">
             <p style="margin-bottom: 0px">{{ $info['info1'] }} / {{ $info['info2'] }}</p>
             <p>{{ $info['info3'] }} / {{ $info['info4'] }}</p>
         </div>

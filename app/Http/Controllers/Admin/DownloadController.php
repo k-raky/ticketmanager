@@ -65,7 +65,7 @@ class DownloadController extends Controller
         File::delete($file);
     }
 
-    function downloadZipFileToPDF($files, $zipFileName, $variant=''){
+    function downloadZipFileToPDF($files, $zipFileName){
 
         $zipFile = new ZipArchive;
         $zipFile->open($zipFileName, ZipArchive::CREATE);
@@ -73,7 +73,7 @@ class DownloadController extends Controller
         foreach ($files as $file) {
             if (is_array($file)) {
                 foreach ($file as $value) {
-                    $zipFile->addFile($value, 'variant'.$variant.'/'.$value);       
+                    $zipFile->addFile($value, $value);       
                 }
             }
             else {
@@ -299,7 +299,7 @@ class DownloadController extends Controller
 
         $pdf_files = array($variant_files,$enveloppeC6_file, $enveloppeDL_file, $bon_file);
         
-        self::downloadZipFileToPDF($pdf_files, $commande_id.'_All.zip', $variant);
+        self::downloadZipFileToPDF($pdf_files, $commande_id.'_All.zip');
 
         return redirect('/');
 

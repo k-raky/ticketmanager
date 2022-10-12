@@ -45,8 +45,8 @@
             transform: rotateX(180deg);
         }
         .logo {
-            width: 13mm;
-            font-size: 3px;
+            width: 15mm;
+            font-size: 5px;
             padding: auto;
             border: solid #000;
             border-width: 0.1px;
