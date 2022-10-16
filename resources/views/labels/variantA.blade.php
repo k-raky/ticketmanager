@@ -48,8 +48,7 @@
             width: 15mm;
             font-size: 5px;
             padding: auto;
-            border: solid #000;
-            border-width: 0.1px;
+            border:thin #000;
             border-radius: 25%;
             text-align: center;
             padding: 0.5px;

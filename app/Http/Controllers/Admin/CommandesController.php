@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Allocation;
 use Codexshaper\WooCommerce\Facades\Order;
 use App\Asset;
+use App\Counter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyAssetRequest;
 use App\Http\Requests\StoreAssetRequest;
@@ -43,8 +44,9 @@ class CommandesController extends Controller
         } 
 
         $users = User::all();
+        $counter = Counter::find(1);
 
-        return view('admin.commandes.index', compact('commandes', 'users', 'allocations'));
+        return view('admin.commandes.index', compact('commandes', 'users', 'allocations', 'counter'));
     }
 
 

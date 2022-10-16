@@ -55,7 +55,7 @@
             <p>{{ $commande['shipping']->postcode}} {{ $commande['shipping']->city}}</p>
             <p> {{ $commande['shipping']->country}} </p>
             <p>{{ $commande['number']}}</p>
-            <p>{{ $commande['order_key']}}</p>
+            <p>{{ sprintf("%'.04d",$allocation[0]->user_id).'-'.date('dmY',strtotime($commande['date_created'])).'-'.sprintf("%'.05d\n",$counter['value']) }}</p>
         </div>
 
     </div>

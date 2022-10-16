@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Allocation;
+use App\Counter;
 use App\Http\Controllers\Controller;
 use Spatie\Browsershot\Browsershot;
 use Illuminate\Http\Request;
@@ -253,8 +255,10 @@ class DownloadController extends Controller
     public function downloadLabel($commande_id, $all, $name, $width, $height){
 
         $commande = Order::find($commande_id);
+        $allocated = Allocation::where('commande_id', $commande_id)->get();
+        $counter = Counter::find(1);
 
-        $view = view('labels.'.$name, ['commande'=> $commande])->render();
+        $view = view('labels.'.$name, ['commande'=> $commande, 'allocation' => $allocated, 'counter' => $counter])->render();
         header("Content-type: text/html");
 
         $file = self::createPDF($width, $height, $view, $commande_id.'_'.$name.'.pdf');

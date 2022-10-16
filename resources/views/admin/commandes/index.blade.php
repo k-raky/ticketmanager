@@ -153,6 +153,8 @@
 
     @include('admin.commandes.modal_liste_users')
 
+    @include('admin.commandes.modal_change_order_count')
+
 
 </div>
 
@@ -223,8 +225,20 @@ let commandes_ids = [];
         
     }
 
+    let ChangeOrderCountButton = {
+      className: 'btn-default',
+      text: "Compteur",
+      exportOptions: {
+          columns: ':visible'
+        },
+        action : function (e, dt, node, config) {
+            $('#modelChangeOrderCount').modal("show") // relatedTarget
+        } 
+    }
+
     
   dtButtons.push(allocateButton)
+  dtButtons.push(ChangeOrderCountButton)
   dtButtons.push(deleteButton)
   
 

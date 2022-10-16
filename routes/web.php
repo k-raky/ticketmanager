@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CommandesController;
 use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Admin\AllocationController;
 use App\Http\Controllers\Admin\PrintController;
+use App\Http\Controllers\Admin\CounterController;
 use Rawilk\Printing\Facades;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Route;
@@ -82,6 +83,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 //    Route::delete('transactions/destroy', 'TransactionsController@massDestroy')->name('transactions.massDestroy');
     Route::post('transactions/{stock}/storeStock', 'TransactionsController@storeStock')->name('transactions.storeStock');
     Route::resource('transactions', 'TransactionsController')->only(['index']);
+
+    Route::post('/updateCounter', [CounterController::class, 'store'])->name('updateCounter');
+
+    Route::get('/counterValue', [CounterController::class, 'index'])->name('showCounter');
+
+
 
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {

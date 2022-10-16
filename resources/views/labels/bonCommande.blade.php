@@ -31,7 +31,7 @@
         <div class="ecriture">
             <p>Nom du client : {{ $commande['shipping']->first_name}} {{ $commande['shipping']->last_name}}</p>
             <p>Numero de Commande : {{ $commande['number']}}</p>
-            <p>Numero de traitement : 55848594895</p>
+            <p>Numero de traitement : {{ sprintf("%'.04d",$allocation[0]->user_id).'-'.date('dmY',strtotime($commande['date_created'])).'-'.sprintf("%'.05d\n",$counter['value'])}}</p>
         </div>
     </div>
 </body>
