@@ -46,6 +46,9 @@ class CounterController extends Controller
             ['id' => 1],
             ['value' => $request->count_index]
         );
+
+        return redirect('/');
+
     }
 
     /**

@@ -270,8 +270,10 @@ class DownloadController extends Controller
 
         $file = self::createPDF($width, $height, $view, $commande_id.'_'.$name.'.pdf');
     
-        $counter->value = $counterValue;
-        $counter->save();
+        if ($name == "enveloppeC6" || $name == "bonCommande") {
+            $counter->value = $counterValue;
+            $counter->save();
+        }
         
         if ($all) {
             return $file;
