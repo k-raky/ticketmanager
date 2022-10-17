@@ -46,6 +46,7 @@ Route::get('/printers', [PrintController::class, 'listPrinters'])->name('printer
 
 Route::post('/print', [PrintController::class, 'print'])->name('print');
 
+
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {

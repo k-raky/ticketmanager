@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('counters', function (Blueprint $table) {
             $table->id();
-            $table->integer('value');
+            $table->integer('value')->default(0);
             $table->timestamps();
         });
     }

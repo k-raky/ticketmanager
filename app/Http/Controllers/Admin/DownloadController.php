@@ -17,6 +17,11 @@ use ZipArchive;
 
 class DownloadController extends Controller
 {
+
+    function variant(){
+        return view("labels.variantT");
+    }
+
     function createPDF($width, $height, $view, $fileName){
 
         $browserFactory = new BrowserFactory();
@@ -258,11 +263,16 @@ class DownloadController extends Controller
         $allocated = Allocation::where('commande_id', $commande_id)->get();
         $counter = Counter::find(1);
 
-        $view = view('labels.'.$name, ['commande'=> $commande, 'allocation' => $allocated, 'counter' => $counter])->render();
+        $counterValue = $counter['value']+1;
+
+        $view = view('labels.'.$name, ['commande'=> $commande, 'allocation' => $allocated, 'counter' => $counterValue])->render();
         header("Content-type: text/html");
 
         $file = self::createPDF($width, $height, $view, $commande_id.'_'.$name.'.pdf');
     
+        $counter->value = $counterValue;
+        $counter->save();
+        
         if ($all) {
             return $file;
         } else {
