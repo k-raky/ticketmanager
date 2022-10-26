@@ -18,8 +18,8 @@ use ZipArchive;
 class DownloadController extends Controller
 {
 
-    function variant(){
-        return view("labels.variantT");
+    function bon(){
+        return view("labels.bonCommande");
     }
 
     function createPDF($width, $height, $view, $fileName){

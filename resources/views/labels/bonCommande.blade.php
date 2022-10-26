@@ -9,29 +9,70 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
     <style>
         .bon {
-            position: absolute;
-            width: 199mm;
-            height: 99mm;
+            display: flex;
+            flex-direction : column;
+            width: 350mm;
+            height: 150mm;
+            justify-content: center;
+            align-items: center;
+        }
+        p { 
+            text-transform: "uppercase";
+            margin-bottom: 0px
+        }
+        .etiquettes {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        li {
+            font-size: 12px
+        }
+        .infos {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .text {
+            width: 40%;
+            margin-left: 0;
+            margin: 1%;
             display: flex;
             justify-content: center;
             align-items: center;
-            text-transform: uppercase;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 14px;
-        }
-        .ecriture { 
-            display: flex;
             flex-direction: column;
+            font-size: 24px;
+            font-weight: bold
+        }
+        img {
+            position: absolute;
+            margin-right: 250px;
+            top: 0px;
+            right: 0px;
+            top: 2%
         }
     </style>
 
 </head>
 <body>
     <div class="bon">
-        <div class="ecriture">
-            <p>Nom du client : {{ $commande['shipping']->first_name}} {{ $commande['shipping']->last_name}}</p>
-            <p>Numero de Commande : {{ $commande['number']}}</p>
-            <p>Numero de traitement : {{ sprintf("%'.04d",$allocation[0]->user_id).'-'.date('dmY',strtotime($commande['date_created'])).'-'.sprintf("%'.05d\n",$counter)}}</p>
+        <div style="width: 300mm">
+            <img src="/storage/img/logo.png" width="100px" height="80px">
+            <p>NOM DU CLIENT : TESTV TESTN - NUMERO DE COMMANDE : 2666 - NUMERO DE TRAITEMENT : 55848594895</p>
+            <p>Date d’entrée de la commande : .......................................... Date de traitement de la commande : .....................................</p>
+            <div class="contenu">
+                <p>Contenu de la commande : </p>
+                <div class="etiquettes">
+                    @for ($i =1 ; $i < 11 ; $i++)
+                        <x-etiquette :numlabel="1"/>    
+                    @endfor
+                    <div class="text">
+                        <p>Save your Document – Save your time</p>
+                        <p>Just Save It</p>
+                    </div>
+                </div>
+            </div>  
         </div>
     </div>
 </body>
