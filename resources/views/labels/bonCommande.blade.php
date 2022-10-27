@@ -26,7 +26,7 @@
             flex-wrap: wrap;
         }
         li {
-            font-size: 12px
+            font-size: 13px
         }
         .infos {
             display: flex;
@@ -47,7 +47,7 @@
         }
         img {
             position: absolute;
-            margin-right: 250px;
+            margin-right: 55px;
             top: 0px;
             right: 0px;
             top: 2%
@@ -57,18 +57,27 @@
 </head>
 <body>
     <div class="bon">
-        <div style="width: 300mm">
+        <div>
             <img src="/storage/img/logo.png" width="100px" height="80px">
-            <p>NOM DU CLIENT : TESTV TESTN - NUMERO DE COMMANDE : 2666 - NUMERO DE TRAITEMENT : 55848594895</p>
-            <p>Date d’entrée de la commande : .......................................... Date de traitement de la commande : .....................................</p>
+            <p><strong>NOM DU CLIENT</strong> : {{ $commande['shipping']->first_name}} {{ $commande['shipping']->last_name}} 
+                - <strong>NUMERO DE COMMANDE</strong> : {{ $commande['number']}} 
+                - <strong>NUMERO DE TRAITEMENT</strong> : {{ sprintf("%'.04d",$allocation[0]->user_id).'-'.date('dmY',strtotime($commande['date_created'])).'-'.sprintf("%'.05d\n",$counter) }}</p>
+            <p><strong>Date d’entrée de la commande</strong> : {{ date('dmY',strtotime($commande['date_created'])) }} - <strong>Date de traitement de la commande</strong> : .....................................</p>
             <div class="contenu">
-                <p>Contenu de la commande : </p>
+                <p><strong>Contenu de la commande : </strong></p>
                 <div class="etiquettes">
-                    @for ($i =1 ; $i < 11 ; $i++)
-                        <x-etiquette :numlabel="1"/>    
-                    @endfor
+                    @if (isset($info) && $info->count() == 4)
+                        @for ($i = 1; $i < 11; $i++)
+                            <x-etiquette :numetiq="$i" :info="$info" />
+                        @endfor
+                    @endif
+                    @if (isset($info) && $info->count() == 40 )
+                        @for ($i = 1; $i < 11; $i++)
+                            <x-etiquette :numetiq="$i" :info="$info['label'.$i.'_info']" />
+                        @endfor
+                    @endif
                     <div class="text">
-                        <p>Save your Document – Save your time</p>
+                        <p style="margin-bottom: 1px">Save your Document – Save your time</p>
                         <p>Just Save It</p>
                     </div>
                 </div>

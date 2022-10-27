@@ -1,15 +1,15 @@
 <table class="table-bordered m-3 ml-0" style="width : 23%">
     <thead>
-        <th class="text-center">Etiquette {{ $numlabel }}</th>
+        <th class="text-center">Etiquette {{ $numetiq }}</th>
     </thead>
     <tbody>
         <tr>
             <td class="infos">
                 <ol>
-                    <li>&nbsp; FFFFFFHH@GMAIL.COM</li>
-                    <li>&nbsp; 7765432779991</li>
-                    <li>&nbsp; FFFFFFHH@GMAIL.COM</li>
-                    <li>&nbsp; 7765432779991</li>
+                    <li>&nbsp; {{ $info['info1'] }}</li>
+                    <li>&nbsp; {{ $info['info2'] }}</li>
+                    <li>&nbsp; {{ $info['info3'] }}</li>
+                    <li>&nbsp; {{ $info['info4'] }}</li>
                 </ol>
             </td>
         </tr>

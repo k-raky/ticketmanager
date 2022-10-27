@@ -123,7 +123,8 @@ class DownloadController extends Controller
                 'info1' => $info1, 
                 'info2' => $info2, 
                 'info3' => $info3, 
-                'info4' => $info4]);
+                'info4' => $info4
+            ]);
 
             $view = view('labels.variantA', ['info'=> $info])->render();
             header("Content-type: text/html");
@@ -256,8 +257,58 @@ class DownloadController extends Controller
          
     }
 
+    public function downloadBonCommande($commande_id){
 
-    public function downloadLabel($commande_id, $all, $name, $width, $height){
+        $commande = Order::find($commande_id);
+
+        if (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit gleichen Informationen FR") {
+            // If he chooses to put the same info on all the 10 labels
+            $info1 = $commande['line_items'][0]->meta_data[0]->value[2]->value;
+            $info2 = $commande['line_items'][0]->meta_data[0]->value[3]->value;
+            $info3 = $commande['line_items'][0]->meta_data[0]->value[4]->value;
+            $info4 = $commande['line_items'][0]->meta_data[0]->value[5]->value;
+
+            $info = collect([
+                'info1' => $info1, 
+                'info2' => $info2, 
+                'info3' => $info3, 
+                'info4' => $info4
+            ]);
+
+            self::downloadLabel($commande_id, false,'bonCommande', 13.7796, 5.90552, $info);          
+
+        } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
+            // If he chooses to put different info on each of the 10 labels
+
+            $j = 2;
+            $info = collect();
+
+            for ($i=1; $i<=10; $i++) { 
+                $k = $j+4;
+                $nb=1;// numero de l'information : de 1 a 4
+                
+                $label_data = collect();
+
+                while ($j<$k) {
+                    $label_data->put("info".$nb,$commande['line_items'][0]->meta_data[0]->value[$j]->value);
+                    $j++;
+                    $nb++;
+                }
+
+                $info->put("label".$i."_info", $label_data);
+                $j++;
+            }
+            
+            self::downloadLabel($commande_id, false,'bonCommande', 13.7796, 5.90552, $info );          
+                
+        }
+
+        return redirect('/');
+
+    }
+
+
+    public function downloadLabel($commande_id, $all, $name, $width, $height,$info=null){
 
         $commande = Order::find($commande_id);
         $allocated = Allocation::where('commande_id', $commande_id)->get();
@@ -265,7 +316,7 @@ class DownloadController extends Controller
 
         $counterValue = $counter['value']+1;
 
-        $view = view('labels.'.$name, ['commande'=> $commande, 'allocation' => $allocated, 'counter' => $counterValue])->render();
+        $view = view('labels.'.$name, ['commande'=> $commande,'info' => $info, 'allocation' => $allocated, 'counter' => $counterValue])->render();
         header("Content-type: text/html");
 
         $file = self::createPDF($width, $height, $view, $commande_id.'_'.$name.'.pdf');
@@ -292,15 +343,15 @@ class DownloadController extends Controller
         self::downloadLabel($commande_id, false,'enveloppeC6', 4.7244094488, 3.1496062992);      
     }
 
-    public function downloadBonCommande($commande_id){
+    /* public function downloadBonCommande($commande_id){
         self::downloadLabel($commande_id, false,'bonCommande', 8.6614173228, 4.3307086614);          
-    }
+    } */
 
     public function downloadAll($commande_id, $variant){
 
         $enveloppeC6_file = self::downloadLabel($commande_id, true,'enveloppeC6', 4.7244094488, 3.1496062992);
         $enveloppeDL_file = self::downloadLabel($commande_id, true,'enveloppeDL', 8.6614173228, 4.3307086614);
-        $bon_file = self::downloadLabel($commande_id, true,'bonCommande', 8.6614173228, 4.3307086614);
+        $bon_file = self::downloadBonCommande($commande_id);
 
         switch ($variant) {
             case 'A':
