@@ -1,9 +1,9 @@
-<table class="table-bordered m-3 ml-0" style="width : 23%">
+<table class="table-bordered m-3 ml-0" style="width : fit-content">
     <thead>
         <th class="text-center">Etiquette {{ $numetiq }}</th>
     </thead>
     <tbody>
-        <tr style="height: fit-content">
+        <tr>
             <td class="infos">
                 <ol>
                     <li>&nbsp; {{ $info['info1'] }}</li>

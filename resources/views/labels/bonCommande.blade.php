@@ -9,10 +9,10 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
     <style>
         .bon {
-            display: flex;
-            flex-direction : column;
             width: 400mm;
             height: 200mm;
+            display: flex;
+            flex-direction : column;
             justify-content: center;
             align-items: center;
             vertical-align: middle
@@ -20,6 +20,7 @@
         p { 
             text-transform: "uppercase";
             margin-bottom: 0px;
+            text-align: left
         }
         .etiquettes {
             display: flex;
@@ -28,6 +29,9 @@
         }
         li {
             font-size: 13px
+        }
+        ol{
+            margin: 5px
         }
         .infos {
             display: flex;
@@ -43,7 +47,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold
         }
         img {
@@ -53,12 +57,19 @@
             right: 0px;
             top: 2%
         }
+        .container {
+            display: flex;
+            width: 90%;
+            height: 90%;
+            justify-content: center;
+            flex-direction: column
+        }
     </style>
 
 </head>
 <body>
     <div class="bon">
-        <div class="mx-auto" style="width: 90%; height : 90%">
+        <div class="container">
             <p><strong>NOM DU CLIENT</strong> : {{ $commande['shipping']->first_name}} {{ $commande['shipping']->last_name}} 
                 - <strong>NUMERO DE COMMANDE</strong> : {{ $commande['number']}} 
                 - <strong>NUMERO DE TRAITEMENT</strong> : {{ sprintf("%'.04d",$allocation[0]->user_id).'-'.date('dmY',strtotime($commande['date_created'])).'-'.sprintf("%'.05d\n",$counter) }}</p>
@@ -71,7 +82,7 @@
                             <x-etiquette :numetiq="$i" :info="$info" />
                         @endfor
                     @endif
-                    @if (isset($info) && $info->count() == 40 )
+                    @if (isset($info) && $info->count() == 10 )
                         @for ($i = 1; $i < 11; $i++)
                             <x-etiquette :numetiq="$i" :info="$info['label'.$i.'_info']" />
                         @endfor
