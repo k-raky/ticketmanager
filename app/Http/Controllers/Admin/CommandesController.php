@@ -41,12 +41,17 @@ class CommandesController extends Controller
         else {
             $commandes = Order::all();
             $allocations = Allocation::all();
+            foreach ($allocations as $allocation) {
+            $commandes = $commandes->filter(function($commande) use($allocation) {
+                    return  (int) $commande->id != $allocation->commande_id;
+                });
+            }
         } 
-
+        $commandes->sortByDesc('id');
         $users = User::all();
         $counter = Counter::find(1);
 
-        return view('admin.commandes.index', compact('commandes', 'users', 'allocations', 'counter'));
+        return view('admin.commandes.index', compact('commandes', 'users', 'counter'));
     }
 
 

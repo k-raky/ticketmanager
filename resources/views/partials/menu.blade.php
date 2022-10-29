@@ -59,7 +59,7 @@
             @endcan
            
           
-            @can('transaction_access')
+        @can('transaction_access')
             <li class="nav-item">
                 <a href="{{ route("admin.commandes.index") }}" class="nav-link {{ request()->is('admin/commandes') || request()->is('admin/commandes*') ? 'active' : '' }}">
                     <i class="fa-fw fa fa-cart-plus nav-icon">
@@ -69,16 +69,15 @@
                 </a>
             </li>
         @endcan
-        {{-- @can('transaction_access')
+        
+        @can('user_management_access')
         <li class="nav-item">
-            <a href="{{ route("admin.clients.index") }}" class="nav-link {{ request()->is('admin/clients') || request()->is('admin/clients/*') ? 'active' : '' }}">
-                <i class="fa-fw fa fa-users nav-icon">
-
-                </i>
-                Clients
+            <a href="{{ route("admin.allocations.index") }}" class="nav-link {{ request()->is('admin/allocations') || request()->is('admin/allocations/*') ? 'active' : '' }}">
+                <i class="fa-fw fa fa-users nav-icon"></i>
+                Allocations
             </a>
         </li>
-    @endcan --}}
+        @endcan
    
 @can('transaction_access')
 <li class="nav-item">
