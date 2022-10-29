@@ -59,7 +59,7 @@
         }
         .container {
             display: flex;
-            width: 90%;
+            width: fit-content;
             height: 90%;
             justify-content: center;
             flex-direction: column
