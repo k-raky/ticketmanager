@@ -10,7 +10,7 @@
     <style type="text/css">
          .variants {
             width: 80mm;
-            height: 83mm;
+            height: 80mm;
             padding: 2mm;
             display: flex;
             flex-direction: column;

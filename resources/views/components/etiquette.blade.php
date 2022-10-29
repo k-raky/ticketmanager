@@ -3,7 +3,7 @@
         <th class="text-center">Etiquette {{ $numetiq }}</th>
     </thead>
     <tbody>
-        <tr>
+        <tr style="height: fit-content">
             <td class="infos">
                 <ol>
                     <li>&nbsp; {{ $info['info1'] }}</li>

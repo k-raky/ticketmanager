@@ -168,7 +168,7 @@ class DownloadController extends Controller
 
 
         foreach ($files_data as $fileName) {
-            $file = self::createPDF(3.1496062992, 3.2677165354, $fileName['view'], $fileName['filename']);
+            $file = self::createPDF(3.1496062992, 3.1496062992, $fileName['view'], $fileName['filename']);
             array_push($pdf_files, $file);
         }
 
@@ -275,7 +275,7 @@ class DownloadController extends Controller
                 'info4' => $info4
             ]);
 
-            self::downloadLabel($commande_id, false,'bonCommande', 13.7796, 5.90552, $info);          
+            self::downloadLabel($commande_id, false,'bonCommande', 15.748, 7.87402, $info);          
 
         } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
             // If he chooses to put different info on each of the 10 labels
@@ -299,7 +299,7 @@ class DownloadController extends Controller
                 $j++;
             }
             
-            self::downloadLabel($commande_id, false,'bonCommande', 13.7796, 5.90552, $info );          
+            self::downloadLabel($commande_id, false,'bonCommande', 15.748, 7.87402, $info );          
                 
         }
 

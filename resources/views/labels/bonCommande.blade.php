@@ -11,14 +11,15 @@
         .bon {
             display: flex;
             flex-direction : column;
-            width: 350mm;
-            height: 150mm;
+            width: 400mm;
+            height: 200mm;
             justify-content: center;
             align-items: center;
+            vertical-align: middle
         }
         p { 
             text-transform: "uppercase";
-            margin-bottom: 0px
+            margin-bottom: 0px;
         }
         .etiquettes {
             display: flex;
@@ -57,12 +58,11 @@
 </head>
 <body>
     <div class="bon">
-        <div>
-            <img src="/storage/img/logo.png" width="100px" height="80px">
+        <div class="mx-auto" style="width: 90%; height : 90%">
             <p><strong>NOM DU CLIENT</strong> : {{ $commande['shipping']->first_name}} {{ $commande['shipping']->last_name}} 
                 - <strong>NUMERO DE COMMANDE</strong> : {{ $commande['number']}} 
                 - <strong>NUMERO DE TRAITEMENT</strong> : {{ sprintf("%'.04d",$allocation[0]->user_id).'-'.date('dmY',strtotime($commande['date_created'])).'-'.sprintf("%'.05d\n",$counter) }}</p>
-            <p><strong>Date d’entrée de la commande</strong> : {{ date('dmY',strtotime($commande['date_created'])) }} - <strong>Date de traitement de la commande</strong> : .....................................</p>
+            <p><strong>Date d’entrée de la commande</strong> : {{ date('d/m/Y',strtotime($commande['date_created'])) }} - <strong>Date de traitement de la commande</strong> : {{ date('d/m/Y')}}</p>
             <div class="contenu">
                 <p><strong>Contenu de la commande : </strong></p>
                 <div class="etiquettes">
