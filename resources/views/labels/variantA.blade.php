@@ -10,8 +10,9 @@
     <style type="text/css">
          .variants {
             width: 80mm;
-            height: 80mm;
-            padding: 2mm;
+            height: 84mm;
+            padding-left: 2mm;
+            padding-right: 2mm;
             display: flex;
             flex-direction: column;
             justify-content: center;
