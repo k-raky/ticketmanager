@@ -87,10 +87,6 @@
                             <x-etiquette :numetiq="$i" :info="$info['label'.$i.'_info']" />
                         @endfor
                     @endif
-                    <div class="text">
-                        <p style="margin-bottom: 1px">Save your Document – Save your time</p>
-                        <p>Just Save It</p>
-                    </div>
                 </div>
             </div>  
         </div>
