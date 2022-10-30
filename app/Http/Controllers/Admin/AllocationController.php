@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Allocation;
-
+use App\Counter;
 use App\Http\Controllers\Controller;
+use App\User;
+use Codexshaper\WooCommerce\Facades\Order;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class AllocationController extends Controller
@@ -18,11 +21,20 @@ class AllocationController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('user_management_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $all_commandes = Order::all();
         $allocations = Allocation::all();
+        $commandes = collect();
+        foreach ($allocations as $allocation) {
+        $result = $all_commandes->filter(function($commande) use($allocation) {
+                return $allocation->commande_id == $commande->id;
+            })->first();
+            $commandes->push($result);
+        }
+        $commandes->sortByDesc('id');
 
-        return $allocations;
+        return view('admin.allocations.index', compact('commandes', 'allocations'));
     }
 
     /**

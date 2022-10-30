@@ -19,8 +19,8 @@
                         <th>
 
                         </th>
-                        <th>
-                            ID
+                        <th >
+                         ID
                         </th>
                         <th>
                             Date d'entrée
@@ -57,6 +57,10 @@
                             État
                            </th>
 
+                           <th>
+                               Responsable
+                           </th>
+                        
                         <th>
                            Opérations
                         </th>
@@ -67,7 +71,7 @@
                      
                     @foreach($commandes as $commande)
 
-                        <tr data-entry-id="{{ $commande->id}}">
+                        <tr data-entry-id="{{ $commande->id }}">
 
                             <td class="align-middle text-center">
 
@@ -110,14 +114,22 @@
                             </td>
                            
                             <td class="@if($commande->status=='processing'){{'text-orange'}}
-                                  @elseif($commande->status=='cancelled'){{'text-red'}}
-                                  @elseif($commande->status=='completed'){{'text-green'}}
-                                  @endif
-                                ">
+                                @elseif($commande->status=='cancelled'){{'text-red'}}
+                                @elseif($commande->status=='completed'){{'text-green'}}
+                                @endif
+                              ">
                                
                                <h6> {{ $commande->status ?? '' }}</h6>
                             </td>
                       
+                            <td>
+                                @foreach ($allocations as $allocation)
+                                    @if ($allocation->commande_id == $commande->id)
+                                        {{ $allocation->user_name}}
+                                    @endif
+                                @endforeach
+                            </td>
+
                             <td>
                                
                             
@@ -146,11 +158,6 @@
             </table>
         </div>
     </div>
-
-    @include('admin.commandes.modal_liste_users')
-
-    @include('admin.commandes.modal_change_order_count')
-
 
 </div>
 
@@ -195,46 +202,7 @@ let commandes_ids = [];
   }
   @endcan
   
-  let allocateButton = {
-      className: 'btn-default',
-      text: "Allouer",
-      exportOptions: {
-          columns: ':visible'
-        },
-        action : function (e, dt, node, config) {
-            let selectedRows= dt.rows({selected :true}).data();
-            console.log(selectedRows)
-            if (selectedRows.length != 0) {   
-
-                for (let i = 0; i < selectedRows.length; i++) {
-                    if (!(selectedRows[i][10].includes("cancelled") || selectedRows[i][10].includes("completed"))) {
-                        commandes_ids.push(selectedRows[i][1]);
-                    } 
-                }
-
-                if (commandes_ids.length != 0) {
-                    $('#modelListeUsers').modal("show") // relatedTarget
-                }
-                
-            }
-        }
-        
-    }
-
-    let ChangeOrderCountButton = {
-      className: 'btn-default',
-      text: "Compteur",
-      exportOptions: {
-          columns: ':visible'
-        },
-        action : function (e, dt, node, config) {
-            $('#modelChangeOrderCount').modal("show") // relatedTarget
-        } 
-    }
-
-    
-  dtButtons.push(allocateButton)
-  dtButtons.push(ChangeOrderCountButton)
+  
   dtButtons.push(deleteButton)
   
 

@@ -75,7 +75,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('commandes/destroy', 'CommandesController@massDestroy')->name('commandes.massDestroy');
     Route::resource('commandes', 'CommandesController');
 
-
+    Route::resource('allocations', 'AllocationController');
 
     // Stocks
     Route::delete('stocks/destroy', 'StocksController@massDestroy')->name('stocks.massDestroy');
