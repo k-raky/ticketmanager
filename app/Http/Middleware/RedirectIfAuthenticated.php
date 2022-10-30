@@ -18,7 +18,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect(route('admin.commandes.index'));
+            return redirect(route('login_desktop'));
         }
 
         return $next($request);

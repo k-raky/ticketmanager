@@ -87,7 +87,7 @@ class AllocationController extends Controller
      * @param  \App\Allocation  $allocation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Allocation $allocation)
+    public function remove(Request $request)
     {
         
     }

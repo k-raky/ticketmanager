@@ -202,8 +202,34 @@ let commandes_ids = [];
   }
   @endcan
   
-  
+  let disallocateButton = {
+      className: 'btn-default',
+      text: "Desallouer",
+      exportOptions: {
+          columns: ':visible'
+        },
+        action : function (e, dt, node, config) {
+            let selectedRows= dt.rows({selected :true}).data();
+            if (selectedRows.length != 0) {   
+                for (let i = 0; i < selectedRows.length; i++) {
+                    commandes_ids.push(selectedRows[i][11]);
+                }
+
+                $.ajax({
+                type: 'GET',
+                url: "{{ route('allocations.remove')}}",
+                headers: {'X-Requested-With': 'XMLHttpRequest'},
+                data: {
+                    commandes_ids: commandes_ids,
+                },
+                })
+                .done(function () { location.reload() }) 
+            }   
+        }        
+    }
+
   dtButtons.push(deleteButton)
+  dtButtons.push(disallocateButton)
   
 
   $.extend(true, $.fn.dataTable.defaults, {

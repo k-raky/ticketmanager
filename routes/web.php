@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Admin\AllocationController;
 use App\Http\Controllers\Admin\PrintController;
 use App\Http\Controllers\Admin\CounterController;
+use App\Http\Controllers\Auth\DesktopPasswordController;
 use Rawilk\Printing\Facades;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Route;
@@ -48,10 +49,16 @@ Route::post('/print', [PrintController::class, 'print'])->name('print');
 
 Route::get('/bon', [DownloadController::class, 'bon'])->name('bon');
 
+Route::get('login_desktop', [DesktopPasswordController::class, 'index'])->name('login_desktop');
+
+Route::post('verifyPassword', [DesktopPasswordController::class, 'verifyPassword'])->name('verifyPassword');
+
+
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::redirect('/', '/login')->name('home');
+
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
     Route::resource('permissions', 'PermissionsController');
@@ -70,8 +77,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::delete('products/destroy', 'ProductsController@massDestroy')->name('products.massDestroy');
     Route::resource('products', 'ProductsController');
+
     Route::delete('clients/destroy', 'ClientsController@massDestroy')->name('clients.massDestroy');
     Route::resource('clients', 'ClientsController');
+
     Route::delete('commandes/destroy', 'CommandesController@massDestroy')->name('commandes.massDestroy');
     Route::resource('commandes', 'CommandesController');
 
