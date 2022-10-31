@@ -212,15 +212,15 @@ let commandes_ids = [];
             let selectedRows= dt.rows({selected :true}).data();
             if (selectedRows.length != 0) {   
                 for (let i = 0; i < selectedRows.length; i++) {
-                    commandes_ids.push(selectedRows[i][11]);
+                    commandes_ids.push(selectedRows[i][1]);
                 }
 
                 $.ajax({
                 type: 'GET',
-                url: "{{ route('allocations.remove')}}",
+                url: "{{ route('admin.allocations.remove') }}",
                 headers: {'X-Requested-With': 'XMLHttpRequest'},
                 data: {
-                    commandes_ids: commandes_ids,
+                    commandes: commandes_ids,
                 },
                 })
                 .done(function () { location.reload() }) 
@@ -228,8 +228,8 @@ let commandes_ids = [];
         }        
     }
 
-  dtButtons.push(deleteButton)
-  dtButtons.push(disallocateButton)
+    dtButtons.push(disallocateButton)
+    dtButtons.push(deleteButton)
   
 
   $.extend(true, $.fn.dataTable.defaults, {
@@ -243,23 +243,7 @@ let commandes_ids = [];
     });
 })
 
-    function allocate(obj) {
-        var list_class = obj.className;
-        var user_id = document.getElementsByClassName(list_class)[0].getElementsByClassName("row")[0].getElementsByClassName("user_id")[0].innerText;
-        var user_name = document.getElementsByClassName(list_class)[0].getElementsByClassName("row")[0].getElementsByClassName("user_name")[0].innerText;
-
-       
-        $.ajax({
-            type: 'GET',
-            url: "{{ route('allocate')}}",
-            headers: {'X-Requested-With': 'XMLHttpRequest'},
-            data: {
-                user_id : user_id,
-                user_name : user_name,
-                commandes_ids: commandes_ids,
-            },
-        }).done(function () { location.reload() })
-    }
+    
 
 </script>
 

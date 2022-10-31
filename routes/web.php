@@ -41,8 +41,6 @@ Route::get('/download/enveloppeC6/{commande_id}', [DownloadController::class, 'd
 Route::get('/download/bonCommande/{commande_id}', [DownloadController::class, 'downloadBonCommande'])->name('download.bonCommande');
 Route::get('/download/all/commande_id/{commande_id}/variant/{variant}', [DownloadController::class, 'downloadAll'])->name('download.all');
 
-Route::get('/allocate', [AllocationController::class, 'store'])->name('allocate');
-
 Route::get('/printers', [PrintController::class, 'listPrinters'])->name('printers');
 
 Route::post('/print', [PrintController::class, 'print'])->name('print');
@@ -85,6 +83,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('commandes', 'CommandesController');
 
     Route::resource('allocations', 'AllocationController');
+    Route::get('allocation/remove', [AllocationController::class, 'remove'])->name('allocations.remove');
+    Route::get('/allocate', [AllocationController::class, 'store'])->name('allocate');
 
     // Stocks
     Route::delete('stocks/destroy', 'StocksController@massDestroy')->name('stocks.massDestroy');

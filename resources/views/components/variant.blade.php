@@ -1,4 +1,4 @@
-<div class="variant-container">
+<div class="variant-container" style="padding-top: {{ $pt ?? ''}}mm; padding-bottom :{{ $pb ?? ''}}mm">
         <div class="top-container">
             <div class="variant-text" style="transform: rotateY(180deg);">
                 <div>

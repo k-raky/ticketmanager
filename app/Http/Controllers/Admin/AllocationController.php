@@ -89,6 +89,10 @@ class AllocationController extends Controller
      */
     public function remove(Request $request)
     {
-        
+        $commandes_ids = $request->commandes;
+
+        for ($i=0; $i < count($commandes_ids); $i++) { 
+            Allocation::where('commande_id', $commandes_ids[$i])->delete();
+        }
     }
 }

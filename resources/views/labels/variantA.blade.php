@@ -74,11 +74,11 @@
             
         @elseif(isset($info) && $info->isNotEmpty())
 
+            <x-variant :info="$info" :pb='1.5' />
+            <x-variant :info="$info" :pb='1' />
             <x-variant :info="$info"/>
-            <x-variant :info="$info"/>
-            <x-variant :info="$info"/>
-            <x-variant :info="$info"/>
-            <x-variant :info="$info"/>
+            <x-variant :info="$info" :pt='1.5' />
+            <x-variant :info="$info" :pt='2' />
             
         @endif
         

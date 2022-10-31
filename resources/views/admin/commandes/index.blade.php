@@ -207,10 +207,12 @@ let commandes_ids = [];
             if (selectedRows.length != 0) {   
 
                 for (let i = 0; i < selectedRows.length; i++) {
-                    if (!(selectedRows[i][10].includes("cancelled") || selectedRows[i][10].includes("completed"))) {
+                    if (!(selectedRows[i][11].includes("cancelled") || selectedRows[i][11].includes("completed"))) {
                         commandes_ids.push(selectedRows[i][1]);
                     } 
                 }
+
+                console.log(commandes_ids);
 
                 if (commandes_ids.length != 0) {
                     $('#modelListeUsers').modal("show") // relatedTarget
@@ -257,7 +259,7 @@ let commandes_ids = [];
        
         $.ajax({
             type: 'GET',
-            url: "{{ route('allocate')}}",
+            url: "{{ route('admin.allocate')}}",
             headers: {'X-Requested-With': 'XMLHttpRequest'},
             data: {
                 user_id : user_id,
