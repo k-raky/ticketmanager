@@ -3,7 +3,7 @@
             <div class="variant-text" style="transform: rotateY(180deg);">
                 <div>
                     <p>Save your document, save your time: Just Save It </p>
-                    <p>Vendu par / Sale by : www.justsaveit.fr</p>
+                    <p>Vendu par / Sold by : www.just-save-it.com</p>
                 </div>
             </div>
             <div class="logo" style="transform: rotateY(180deg);">

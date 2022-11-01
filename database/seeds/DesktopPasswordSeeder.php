@@ -20,6 +20,7 @@ class DesktopPasswordSeeder extends Seeder
             [
                 'id'             => 1,
                 'value'           => null,
+                'created_at'    => now()
             ],
         ];
 
