@@ -26,7 +26,7 @@ Route::get('/home', function () {
 Auth::routes(['register' => false]);
 // Admin
 
-Route::middleware(['auth', 'desktop'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
 Route::get('/imprimer','App\Http\Controllers\PrintersController@index')->name('imprimer');
 
@@ -54,7 +54,7 @@ Route::post('verifyPassword', [DesktopPasswordController::class, 'verifyPassword
 
 });
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth', 'desktop']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::redirect('/', '/login')->name('home');
 
     // Permissions

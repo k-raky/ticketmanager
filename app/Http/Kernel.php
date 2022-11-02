@@ -43,6 +43,5 @@ class Kernel extends HttpKernel
         'bindings'         => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'auth.basic'       => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'desktop'          => \Illuminate\Auth\Middleware\DesktopPasswordValid::class
     ];
 }

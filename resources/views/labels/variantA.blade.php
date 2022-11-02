@@ -27,6 +27,7 @@
             justify-content: center;
             align-items: center;
             margin-left: 2mm;
+            font-family: Arial
         }
         .variant-container {
             width: 100%;
@@ -54,7 +55,8 @@
            justify-content: center;
            align-items: center;
            display: flex;
-           flex-direction: column
+           flex-direction: column;
+           font-family: Arial
         }
         p {
             margin: 0px;
