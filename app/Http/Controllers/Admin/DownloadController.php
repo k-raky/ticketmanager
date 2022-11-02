@@ -168,7 +168,7 @@ class DownloadController extends Controller
 
 
         foreach ($files_data as $fileName) {
-            $file = self::createPDF(3.1496062992, 3.30709, $fileName['view'], $fileName['filename']);
+            $file = self::createPDF(3.1496062992, 3.34646, $fileName['view'], $fileName['filename']);
             array_push($pdf_files, $file);
         }
 

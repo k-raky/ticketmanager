@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\DesktopPasswordValid;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -42,5 +43,6 @@ class Kernel extends HttpKernel
         'bindings'         => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'auth.basic'       => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'desktop'          => \Illuminate\Auth\Middleware\DesktopPasswordValid::class
     ];
 }

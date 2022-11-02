@@ -9,16 +9,17 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
     <style type="text/css">
          .variants {
-            width: 80mm;
-            height: 54mm;
-            padding: 2mm;
+            width: 79mm;
+            height: 53mm;
+            padding-left: 2mm;
+            padding-right: 2mm;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center
         }
         .variant-text {
-            font-size: 6px;
+            font-size: 7px;
             width: 100%;
             height: 6mm;
             display: flex;
@@ -41,15 +42,15 @@
             transform: rotateX(180deg);
         }
         .logo {
-           font-size: 4px;
+           font-size: 5.5px;
            text-align: center;
            margin-right: 1mm;
            border-color: black;
            border-style: solid;
-           border-width: 0.03px;
-           border-radius: 30%;
-           height: 4mm;
-           width: 20mm;
+           border-width: 0.1em;
+           border-radius: 50px;
+           height: fit-content;
+           width: 30mm;
            justify-content: center;
            align-items: center;
            display: flex;

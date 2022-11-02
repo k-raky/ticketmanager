@@ -8,7 +8,7 @@
             </div>
             <div class="logo" style="transform: rotateY(180deg);">
                 <div>
-                    <p>Please contact me back</p>
+                    <p style="margin-bottom : 0" >Please contact me back</p>
                     <p>Merci de me contacter</p>
                 </div>
             </div>
