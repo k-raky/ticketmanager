@@ -257,10 +257,11 @@ class DownloadController extends Controller
          
     }
 
-    public function downloadBonCommande($commande_id){
+    public function downloadBonCommande($commande_id, $all=false){
 
         $commande = Order::find($commande_id);
-
+        $file = null;
+        
         if (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit gleichen Informationen FR") {
             // If he chooses to put the same info on all the 10 labels
             $info1 = $commande['line_items'][0]->meta_data[0]->value[2]->value;
@@ -275,7 +276,7 @@ class DownloadController extends Controller
                 'info4' => $info4
             ]);
 
-            self::downloadLabel($commande_id, false,'bonCommande', 15.748, 7.87402, $info);          
+            $file = self::downloadLabel($commande_id, $all,'bonCommande', 15.748, 7.87402, $info);          
 
         } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
             // If he chooses to put different info on each of the 10 labels
@@ -299,12 +300,13 @@ class DownloadController extends Controller
                 $j++;
             }
             
-            self::downloadLabel($commande_id, false,'bonCommande', 15.748, 7.87402, $info );          
+            $file = self::downloadLabel($commande_id, $all,'bonCommande', 15.748, 7.87402, $info );          
                 
         }
 
-        return redirect('/');
-
+        if ($file){
+            return $file;
+        }
     }
 
 
@@ -351,7 +353,7 @@ class DownloadController extends Controller
 
         $enveloppeC6_file = self::downloadLabel($commande_id, true,'enveloppeC6', 4.7244094488, 3.1496062992);
         $enveloppeDL_file = self::downloadLabel($commande_id, true,'enveloppeDL', 8.6614173228, 4.3307086614);
-        $bon_file = self::downloadBonCommande($commande_id);
+        $bon_file = self::downloadBonCommande($commande_id, true);
 
         switch ($variant) {
             case 'A':
