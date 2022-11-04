@@ -9,8 +9,8 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
     <style>
         .bon {
-            width: 200mm;
-            height: 100mm;
+            width: 199mm;
+            height: 99mm;
             display: flex;
             flex-direction : column;
             justify-content: center;
@@ -39,7 +39,8 @@
             width: 10%;
             height: 100%;
             align-self:flex-end;
-            margin-right: 15px
+            margin-right: 15px;
+            object-fit: contain
         }
         .container {
             display: flex;
@@ -51,7 +52,7 @@
         table{
             font-size: 10px;
             margin-right: 0;
-            margin-bottom: 5px;
+            margin-bottom: 7px;
             margin-right: 0;
             height: 75px;
         }
@@ -87,7 +88,7 @@
                         - <strong>NUMERO DE TRAITEMENT</strong> : {{ sprintf("%'.04d",($allocation[0]->user_id) ?? 1).'-'.date('dmY',strtotime($commande['date_created'])).'-'.sprintf("%'.05d\n",$counter) }}</p>
                     <p><strong>Date d’entrée de la commande</strong> : {{ date('d/m/Y',strtotime($commande['date_created'])) }} - <strong>Date de traitement de la commande</strong> : {{ date('d/m/Y')}}</p>
                 </div>
-                <img src="{{ public_path('storage/img/logo.png')}}" alt="">
+                <img src="{{ asset('storage/img/logo.png') }}" alt="">
             </div>
             <div class="contenu">
                 <p><strong>Contenu de la commande : </strong></p>
