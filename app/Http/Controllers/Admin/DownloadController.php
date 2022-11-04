@@ -276,7 +276,7 @@ class DownloadController extends Controller
                 'info4' => $info4
             ]);
 
-            $file = self::downloadLabel($commande_id, $all,'bonCommande', 15.748, 7.87402, $info);          
+            $file = self::downloadLabel($commande_id, $all,'bonCommande', 7.87402, 3.93701, $info);          
 
         } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
             // If he chooses to put different info on each of the 10 labels
@@ -300,7 +300,7 @@ class DownloadController extends Controller
                 $j++;
             }
             
-            $file = self::downloadLabel($commande_id, $all,'bonCommande', 15.748, 7.87402, $info );          
+            $file = self::downloadLabel($commande_id, $all,'bonCommande', 7.87402, 3.93701, $info );          
                 
         }
 
