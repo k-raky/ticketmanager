@@ -136,8 +136,10 @@
 
                         </tr>
 
-                        @include('admin.commandes.modal')
-                        
+                        @can('user_management_access')
+                            @include('admin.commandes.modal')
+                        @endcan
+
                     @endforeach
    
                     @endif
@@ -147,10 +149,10 @@
         </div>
     </div>
 
-    @include('admin.commandes.modal_liste_users')
-
-    @include('admin.commandes.modal_change_order_count')
-
+    @can('user_management_access')
+        @include('admin.commandes.modal_liste_users')
+        @include('admin.commandes.modal_change_order_count')
+    @endcan
 
 </div>
 
@@ -159,6 +161,9 @@
 @endsection
 @section('scripts')
 @parent
+
+@can('permission_edit')
+    
 <script>
 
 let commandes_ids = [];
@@ -166,6 +171,7 @@ let commandes_ids = [];
 
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
+  
 @can('asset_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
@@ -195,6 +201,7 @@ let commandes_ids = [];
   }
   @endcan
   
+  @can('user_management_access')
   let allocateButton = {
       className: 'btn-default',
       text: "Allouer",
@@ -234,7 +241,8 @@ let commandes_ids = [];
         } 
     }
 
-    
+    @endcan
+
   dtButtons.push(allocateButton)
   dtButtons.push(ChangeOrderCountButton)
   dtButtons.push(deleteButton)
@@ -280,4 +288,29 @@ let commandes_ids = [];
         color:red;
     }
 </style>
+
+@endcan
+
+
+@can('simple_user')
+
+<script>
+    $(function () {
+
+  $.extend(true, $.fn.dataTable.defaults, {
+    order: [[ 1, 'desc' ]],
+    pageLength: 100,
+  });
+  $('.datatable-Asset:not(.ajaxTable)').DataTable()
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust();
+    });
+})
+
+</script>
+
+@endcan
+
+
 @endsection

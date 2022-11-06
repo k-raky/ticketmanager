@@ -88,7 +88,6 @@
                         - <strong>NUMERO DE TRAITEMENT</strong> : {{ sprintf("%'.04d",($allocation[0]->user_id) ?? 1).'-'.date('dmY',strtotime($commande['date_created'])).'-'.sprintf("%'.05d\n",$counter) }}</p>
                     <p><strong>Date d’entrée de la commande</strong> : {{ date('d/m/Y',strtotime($commande['date_created'])) }} - <strong>Date de traitement de la commande</strong> : {{ date('d/m/Y')}}</p>
                 </div>
-                <img src="{{ asset('storage/img/logo.png') }}" alt="">
             </div>
             <div class="contenu">
                 <p><strong>Contenu de la commande : </strong></p>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AllocationController;
 use App\Http\Controllers\Admin\PrintController;
 use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Auth\DesktopPasswordController;
+use App\Http\Controllers\Auth\LoginController;
 use Rawilk\Printing\Facades;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Route;
@@ -26,11 +27,11 @@ Route::get('/home', function () {
 Auth::routes(['register' => false]);
 // Admin
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'desktop'])->group(function () {
 
 Route::get('/imprimer','App\Http\Controllers\PrintersController@index')->name('imprimer');
 
-Route::get('/logout',);
+Route::get('/logout', [LoginController::class, 'logout'] );
 
 Route::get('/stats','App\Http\Controllers\Admin\StatsController@index')->name('admin.commandes.stats');
 
@@ -47,14 +48,16 @@ Route::post('/print', [PrintController::class, 'print'])->name('print');
 
 Route::get('/bon', [DownloadController::class, 'bon'])->name('bon');
 
-Route::get('login_desktop', [DesktopPasswordController::class, 'index'])->name('login_desktop');
-
-Route::post('verifyPassword', [DesktopPasswordController::class, 'verifyPassword'])->name('verifyPassword');
-
 
 });
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+Route::middleware(['auth'])->group(function () {
+    Route::get('login_desktop', [DesktopPasswordController::class, 'index'])->name('login_desktop');
+    Route::post('verifyPassword', [DesktopPasswordController::class, 'verifyPassword'])->name('verifyPassword');
+});
+
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth', 'desktop']], function () {
     Route::redirect('/', '/login')->name('home');
 
     // Permissions

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class DesktopPasswordController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +23,13 @@ class DesktopPasswordController extends Controller
         if($user_role[0]->role_id == 1){
             return redirect(route('admin.commandes.index'));
         } else {
-            return view('/auth/login_desktop');
+            if (session()->has('desktop_token')) {
+                return redirect(route('admin.commandes.index'));
+            }
+            else {
+                return view('/auth/login_desktop');
+            }
+
         }
     }
 
@@ -38,9 +45,13 @@ class DesktopPasswordController extends Controller
         $db_password = DesktopPassword::find(1);
 
         if ($password == $db_password['value']) {
+            //remove password from db
             $db_password->value = null;
             $db_password->updated_at = now();
             $db_password->save();
+
+            session(['desktop_token' => 'ok']);
+
             return redirect(route('admin.commandes.index'));
         }
         else {
