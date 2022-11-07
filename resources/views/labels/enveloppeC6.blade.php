@@ -51,9 +51,6 @@
         </div>
         <div class="recipient">
             <p>{{ $commande['shipping']->first_name}} {{ $commande['shipping']->last_name}}</p>
-            <p>{{ $commande['shipping']->address_1}}</p>
-            <p>{{ $commande['shipping']->postcode}} {{ $commande['shipping']->city}}</p>
-            <p> {{ $commande['shipping']->country}} </p>
             <p>{{ $commande['number']}}</p>
             <p>{{ sprintf("%'.04d",($allocation[0]->user_id) ?? 1).'-'.date('dmY',strtotime($commande['date_created'])).'-'.sprintf("%'.05d\n",$counter) }}</p>
         </div>
