@@ -1,5 +1,5 @@
 <div class="variant-container" style="padding-top: {{ $mt ?? 0}}mm; padding-bottom :{{ $mb ?? 0}}mm">
-        <div class="top-container" style="padding-top: {{ $pb_logo ?? 0}}mm">
+        <div class="top-container" style="padding-top: {{ $ptLogo ?? 0}}mm">
             <div class="variant-text" style="transform: rotateY(180deg);">
                 <div>
                     <p>Save your document, save your time: Just Save It </p>
@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <div class="variant-text" style="height: 50%; width:100%; padding-bottom :{{ $pt_infos ?? 0}}mm">
+        <div class="variant-text" style="height: 50%; width:100%; padding-top :{{ $ptInfos ?? 0}}mm">
             <div>
                 <p>{{ $info['info1'] }} / {{ $info['info2'] }}</p>
                 <p>{{ $info['info3'] }} / {{ $info['info4'] }}</p>
