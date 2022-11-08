@@ -61,13 +61,15 @@
             flex-direction: row
         }
         .text-logo{
-            width: 50%;
+            width: 40%;
+            background-color: aqua;
             margin-left: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            font-weight: bold;
+            text-align: center;
+            font-weight: lighter;
             border-style: solid;
             border: 1px black
         }
@@ -103,8 +105,8 @@
                         @endfor
                     @endif
                     <div class="text-logo">
-                        <p  style="font-size: 16px">Save your Document - Save your time</p>
-                        <p style="font-size: 16px">Just Save It</p>
+                        <p  style="font-size: 14px">Save your Document - Save your time</p>
+                        <p style="font-size: 14px">Just Save It on www.just-save-it.com</p>
                     </div>
                 </div>
             </div>  

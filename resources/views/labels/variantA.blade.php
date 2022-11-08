@@ -79,8 +79,8 @@
             <x-variant :info="$info" :mb='1.5' :ptLogo='1' />
             <x-variant :info="$info" :mb='1' :ptLogo='1'/>
             <x-variant :info="$info" :ptInfos='1' />
-            <x-variant :info="$info" :mt='1.5' :ptInfos='0.5' :pbLogo='0.5'/>
-            <x-variant :info="$info" :mt='2' :ptInfos='1' :pbLogo='0.5'/>
+            <x-variant :info="$info" :mt='1.5' :ptInfos='0.5' :ptLogo='0.5'/>
+            <x-variant :info="$info" :mt='2' :ptInfos='1' :ptLogo='0.5'/>
             
         @endif
         
