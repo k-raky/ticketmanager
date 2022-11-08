@@ -38,7 +38,7 @@ Route::get('/stats','App\Http\Controllers\Admin\StatsController@index')->name('a
 Route::get('/download/variantA/{commande_id}', [DownloadController::class, 'downloadVariantA'])->name('download.variantA');
 Route::get('/download/variantB/{commande_id}', [DownloadController::class, 'downloadVariantB'])->name('download.variantB');
 Route::get('/download/enveloppeDL/{commande_id}', [DownloadController::class, 'downloadEnveloppeDL'])->name('download.enveloppeDL');
-Route::get('/download/enveloppeC6/{commande_id}', [DownloadController::class, 'downloadEnveloppeC6'])->name('download.enveloppeC6');
+Route::get('/download/enveloppeC7/{commande_id}', [DownloadController::class, 'downloadEnveloppeC7'])->name('download.enveloppeC7');
 Route::get('/download/bonCommande/{commande_id}', [DownloadController::class, 'downloadBonCommande'])->name('download.bonCommande');
 Route::get('/download/all/commande_id/{commande_id}/variant/{variant}', [DownloadController::class, 'downloadAll'])->name('download.all');
 

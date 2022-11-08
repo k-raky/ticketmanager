@@ -38,7 +38,7 @@
                             <x-modal_download_options :titre="'1. Téléchargement des 10 étiquettes'" :toggle="'modal'" :target="'#modelVariants_10_'.$commande->id" :dismiss="'modal'" />
                         @endif
                     
-                    <x-modal_download_options :titre="'2. Téléchargement des enveloppes C6'" :href="route('download.enveloppeC6', ['commande_id'=>$commande->id])" />
+                    <x-modal_download_options :titre="'2. Téléchargement des enveloppes C7'" :href="route('download.enveloppeC7', ['commande_id'=>$commande->id])" />
                     <x-modal_download_options :titre="'3. Téléchargement des enveloppes DL'"  :href="route('download.enveloppeDL', ['commande_id'=>$commande->id])" />
                     <x-modal_download_options :titre="'4. Téléchargement du bon de commande'" :href="route('download.bonCommande', ['commande_id'=>$commande->id])" />
                 </div>

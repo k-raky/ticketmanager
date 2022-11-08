@@ -62,14 +62,13 @@
         }
         .text-logo{
             width: 40%;
-            background-color: aqua;
-            margin-left: 0;
+            margin: auto;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             text-align: center;
-            font-weight: lighter;
+            font-weight: 300;
             border-style: solid;
             border: 1px black
         }
@@ -106,7 +105,7 @@
                     @endif
                     <div class="text-logo">
                         <p  style="font-size: 14px">Save your Document - Save your time</p>
-                        <p style="font-size: 14px">Just Save It on www.just-save-it.com</p>
+                        <p style="font-size: 14px">Just Save It on <a href="www.just-save-it.com" class="link-primary">www.just-save-it.com</a></p>
                     </div>
                 </div>
             </div>  
