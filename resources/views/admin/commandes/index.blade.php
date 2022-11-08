@@ -136,7 +136,7 @@
 
                         </tr>
 
-                        @can('user_management_access')
+                        @can('asset_edit')
                             @include('admin.commandes.modal')
                         @endcan
 
