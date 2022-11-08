@@ -80,7 +80,7 @@
             <x-variant :info="$info" :mb='1' :pb_logo='1'/>
             <x-variant :info="$info" :pt_infos='1' />
             <x-variant :info="$info" :mt='1.5' :pt_infos='0.5' :pb_logo='0.5'/>
-            <x-variant :info="$info" :mt='2' :pt_infos='0.5' :pb_logo='0.5'/>
+            <x-variant :info="$info" :mt='2' :pt_infos='0.5' :pb_logo='1'/>
             
         @endif
         
