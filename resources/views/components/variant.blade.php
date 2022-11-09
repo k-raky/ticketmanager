@@ -15,8 +15,8 @@
         </div>
         <div class="variant-text" style="height: 50%; width:100%; padding-top :{{ $ptInfos ?? 0}}mm">
             <div>
-                <p>{{ $info['info1'] }} / {{ $info['info2'] }}</p>
-                <p>{{ $info['info3'] }} / {{ $info['info4'] }}</p>
+                <p>{{ $info['info1'] }}  /  {{ $info['info2'] }}</p>
+                <p>{{ $info['info3'] }}  /  {{ $info['info4'] }}</p>
             </div>
         </div>
 </div>

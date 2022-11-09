@@ -19,7 +19,7 @@
             align-items: center
         }
         .variant-text {
-            font-size: 7px;
+            font-size: 7.5px;
             width: 100%;
             height: 6mm;
             display: flex;
@@ -43,7 +43,7 @@
             transform: rotateX(180deg);
         }
         .logo {
-           font-size: 5.5px;
+           font-size: 6px;
            text-align: center;
            margin-right: 1mm;
            border-color: black;
