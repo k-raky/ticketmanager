@@ -18,8 +18,13 @@ use ZipArchive;
 class DownloadController extends Controller
 {
 
-    function bon(){
-        return view("labels.bonCommande");
+    public function formatNumber($number){
+        if (is_numeric($number)) {
+            return phone($number, 'DE')->formatInternational();
+        }
+        else{
+            return $number;
+        }
     }
 
     function createPDF($width, $height, $view, $fileName){
