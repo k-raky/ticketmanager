@@ -18,8 +18,8 @@
         </div>
         <div class="variant-text" style="height: 50%; width:100%; padding-top :{{ $ptInfos ?? 0}}mm">
             <div>
-                <p>{{ $dc->formatNumber($info['info1']) }}&nbsp;&nbsp;/&nbsp;&nbsp;{{ $dc->formatNumber($info['info2']) }}</p>
-                <p>{{ $dc->formatNumber($info['info3']) }}&nbsp;&nbsp;/&nbsp;&nbsp;{{ $dc->formatNumber($info['info4']) }}</p>
+                <p>{{ $dc->formatNumber($info['info1']) }}&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;{{ $dc->formatNumber($info['info2']) }}</p>
+                <p>{{ $dc->formatNumber($info['info3']) }}&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;{{ $dc->formatNumber($info['info4']) }}</p>
             </div>
         </div>
 </div>

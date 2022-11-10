@@ -25,7 +25,7 @@
         "laravel/ui": "^3.4.5",
         "neysi/directprint": "^1.0",
         "printnode/printnode-php": "dev-master",
-        "propaganistas/laravel-phone": "^4.3",
+        "propaganistas/laravel-phone": "^4.4",
         "rawilk/laravel-printing": "^3.0",
         "setasign/fpdf": "1.8",
         "setasign/fpdi": "^2.3",

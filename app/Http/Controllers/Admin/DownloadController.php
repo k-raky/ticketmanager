@@ -20,7 +20,8 @@ class DownloadController extends Controller
 
     public function formatNumber($number){
         if (is_numeric($number)) {
-            return phone($number, 'DE')->formatInternational();
+            $formatted_number = substr($number, 0, 3)." ".+substr($number, 3, 3)." ".substr($number, 6, 2)." ".substr($number, 8, 2)." ".substr($number, 10, 2)." ".substr($number, 12, 2);
+            return $formatted_number;
         }
         else{
             return $number;
