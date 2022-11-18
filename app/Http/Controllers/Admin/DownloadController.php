@@ -42,6 +42,7 @@ class DownloadController extends Controller
                // $page->screenshot()->saveToFile($downloadedFilePath);
 
                 $pdf = $page->pdf([
+                    'printBackground'     => true,             // default to false
                     'preferCSSPageSize'   => true,             // default to false (reads parameters directly from @page)
                     'marginTop'           => 0.0,              // defaults to ~0.4 (must be a float, value in inches)
                     'marginBottom'        => 0.0,              // defaults to ~0.4 (must be a float, value in inches)
@@ -133,7 +134,7 @@ class DownloadController extends Controller
             ]);
 
             $view = view('labels.variantA', ['info'=> $info])->render();
-            header("Content-type: text/html");
+            header("Content-type: text/html; charset=utf-8");
 
             $color_etiquette = $commande['line_items'][0]->meta_data[0]->value[1]->value;
 
@@ -164,7 +165,7 @@ class DownloadController extends Controller
                 }
 
                 $view = view('labels.variantA', ['data'=> $data])->render();
-                header("Content-type: text/html");
+                header("Content-type: text/html; charset=utf-8");
 
                 $color_etiquette = $commande['line_items'][0]->meta_data[0]->value[1]->value;
                 array_push($files_data, ['filename' => $commande_id.'_'.$color_etiquette.'_variantA_bloc'.$numero_variant.'.pdf','view' => $view]);
@@ -207,7 +208,7 @@ class DownloadController extends Controller
                 'info4' => $info4]);
 
             $view = view('labels.variantB', ['info'=> $info])->render();
-            header("Content-type: text/html");
+            header("Content-type: text/html; charset=utf-8");
     
             $color_etiquette_1 = $commande['line_items'][0]->meta_data[0]->value[1]->value;
             array_push($files_data, ['filename' => $commande_id.'_'.$color_etiquette_1.'_variantB_bloc1.pdf', 'view' => $view]);
@@ -239,7 +240,7 @@ class DownloadController extends Controller
                 }
 
                 $view = view('labels.variantB', ['info'=> $info])->render();
-                header("Content-type: text/html");
+                header("Content-type: text/html; charset=utf-8");
 
                 $color_etiquette = $commande['line_items'][0]->meta_data[0]->value[$nb_color_array]->value;
                 array_push($files_data, ['filename' => $commande_id.'_'.$color_etiquette.'_variantB_bloc'.$i.'.pdf', 'view' => $view]);
@@ -319,13 +320,14 @@ class DownloadController extends Controller
     public function downloadLabel($commande_id, $all, $name, $width, $height,$info=null){
 
         $commande = Order::find($commande_id);
+        
         $allocated = Allocation::where('commande_id', $commande_id)->get();
         $counter = Counter::find(1);
 
         $counterValue = $counter['value']+1;
 
         $view = view('labels.'.$name, ['commande'=> $commande,'info' => $info, 'allocation' => $allocated, 'counter' => $counterValue])->render();
-        header("Content-type: text/html");
+        header("Content-Type: text/html; charset=utf-8");
 
         $file = self::createPDF($width, $height, $view, $commande_id.'_'.$name.'.pdf');
     
