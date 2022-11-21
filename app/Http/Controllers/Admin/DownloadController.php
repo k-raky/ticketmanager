@@ -349,6 +349,7 @@ class DownloadController extends Controller
         self::downloadLabel($commande_id, false,'enveloppeDL', 8.6614173228, 4.3307086614);    
     }
 
+    // client asked to remove C7
     public function downloadEnveloppeC7($commande_id){
         self::downloadLabel($commande_id, false,'enveloppeC7', 4.7244094488, 3.1496062992);      
     }
@@ -359,7 +360,7 @@ class DownloadController extends Controller
 
     public function downloadAll($commande_id, $variant){
 
-        $enveloppeC7_file = self::downloadLabel($commande_id, true,'enveloppeC7', 4.7244094488, 3.1496062992);
+        //$enveloppeC7_file = self::downloadLabel($commande_id, true,'enveloppeC7', 4.7244094488, 3.1496062992);
         $enveloppeDL_file = self::downloadLabel($commande_id, true,'enveloppeDL', 8.6614173228, 4.3307086614);
         $bon_file = self::downloadBonCommande($commande_id, true);
 
@@ -374,7 +375,7 @@ class DownloadController extends Controller
                 break;
         }
 
-        $pdf_files = array($variant_files,$enveloppeC7_file, $enveloppeDL_file, $bon_file);
+        $pdf_files = array($variant_files, $enveloppeDL_file, $bon_file);
         
         self::downloadZipFileToPDF($pdf_files, $commande_id.'_All.zip');
 
