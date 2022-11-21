@@ -38,7 +38,7 @@
 <body>
     <div class="enveloppe">
         <div class="sender">
-            <p>YOMEN'S SUPPLY SERVICE</p>
+            <p><strong>just save it</strong></p>
             <p>1 Place aux herbes,</p>
             <p>26100 Romans-sur-Isère</p>
             <p>France</p>
