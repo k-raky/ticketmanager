@@ -38,13 +38,10 @@
 <body>
     <div class="enveloppe">
         <div class="sender">
-            <p>{{ $commande['meta_data'][8]->value->shop_name->default }}</p>
-            <p>{{ $commande['meta_data'][8]->value->shop_address->default }}</p>
-            @php
-                $contact = explode("-",$commande['meta_data'][8]->value->footer->default);
-            @endphp
-            <p>{{ $contact[0] ?? '' }}</p>
-            <p>{{ $contact[1] ?? '' }}</p>
+            <p>YOMEN'S SUPPLY SERVICE</p>
+            <p>1 Place aux herbes,</p>
+            <p>26100 Romans-sur-Isère</p>
+            <p>France</p>
         </div>
         <div class="recipient">
             <p>{{ $commande['shipping']->first_name}} {{ $commande['shipping']->last_name}}</p>
