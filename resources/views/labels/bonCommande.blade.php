@@ -100,7 +100,6 @@
                 </div>
             </div>
             <div class="contenu">
-                <p><strong>Contenu de la commande : </strong></p>
                 <div class="etiquettes">
                     @if (isset($info) && $info->count() == 4)
                         @for ($i = 1; $i < 11; $i++)

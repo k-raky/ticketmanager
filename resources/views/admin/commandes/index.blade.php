@@ -123,7 +123,7 @@
                             
                                 @can('asset_edit')
 
-                                    @if ($commande->status == 'processing')
+                                    @if ($commande->status != 'cancelled')
                                         <a class="btn btn-xs btn-info text-light" data-toggle="modal" data-target="#modelTelecharger{{ $commande->id}}">
                                             Télécharger
                                         </a>
