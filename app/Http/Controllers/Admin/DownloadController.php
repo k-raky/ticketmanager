@@ -119,7 +119,7 @@ class DownloadController extends Controller
         $files_data = array();
         $pdf_files = array();
 
-        if (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit gleichen Informationen FR") {
+        if (str_contains(($commande['line_items'][0]->meta_data[0]->value[0]->value),"10 Etiketten mit gleichen Informationen")) {
             // If he chooses to put the same info on all the 10 labels
             $info1 = $commande['line_items'][0]->meta_data[0]->value[2]->value;
             $info2 = $commande['line_items'][0]->meta_data[0]->value[3]->value;
@@ -141,7 +141,7 @@ class DownloadController extends Controller
             array_push($files_data, ['filename' => $commande_id.'_'.$color_etiquette.'_variantA_bloc1.pdf','view' => $view]);
             array_push($files_data, ['filename' => $commande_id.'_'.$color_etiquette.'_variantA_bloc2.pdf','view' => $view]);
 
-        } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
+        } elseif (str_contains(($commande['line_items'][0]->meta_data[0]->value[0]->value),"10 Etiketten mit NICHT gleichen Informationen")) {
             // If he chooses to put different info on each of the 10 labels
             $j = 2;
             $data= collect();
@@ -191,10 +191,11 @@ class DownloadController extends Controller
     public function downloadVariantB($commande_id, $all=false){
 
         $commande = Order::find($commande_id);
+
         $files_data = array();
         $pdf_files = array();
 
-        if (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit gleichen Informationen FR") {
+        if (str_contains(($commande['line_items'][0]->meta_data[0]->value[0]->value),"10 Etiketten mit gleichen Informationen")) {
             // If he chooses to put the same info on all the 10 labels
             $info1 = $commande['line_items'][0]->meta_data[0]->value[2]->value;
             $info2 = $commande['line_items'][0]->meta_data[0]->value[3]->value;
@@ -221,7 +222,7 @@ class DownloadController extends Controller
                 array_push($files_data, ['filename' => $commande_id.'_'.$color_etiquette.'_variantB_bloc'.$i.'.pdf', 'view' => $view]);
             }
 
-        } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
+        } elseif (str_contains(($commande['line_items'][0]->meta_data[0]->value[0]->value),"10 Etiketten mit NICHT gleichen Informationen")) {
             // If he chooses to put different info on each of the 10 labels
             $j = 2;
             $info = collect();
@@ -255,6 +256,7 @@ class DownloadController extends Controller
             array_push($pdf_files, $file);
         }
 
+        
         if ($all) {
             return $pdf_files;
         } else {
@@ -269,7 +271,7 @@ class DownloadController extends Controller
         $commande = Order::find($commande_id);
         $file = null;
         
-        if (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit gleichen Informationen FR") {
+        if (str_contains(($commande['line_items'][0]->meta_data[0]->value[0]->value),"10 Etiketten mit gleichen Informationen")) {
             // If he chooses to put the same info on all the 10 labels
             $info1 = $commande['line_items'][0]->meta_data[0]->value[2]->value;
             $info2 = $commande['line_items'][0]->meta_data[0]->value[3]->value;
@@ -285,7 +287,7 @@ class DownloadController extends Controller
 
             $file = self::downloadLabel($commande_id, $all,'bonCommande', 7.87402, 3.93701, $info);          
 
-        } elseif (($commande['line_items'][0]->meta_data[0]->value[0]->value) == "10 Etiketten mit NICHT gleichen Informationen FR") {
+        } elseif (str_contains(($commande['line_items'][0]->meta_data[0]->value[0]->value),"10 Etiketten mit NICHT gleichen Informationen")) {
             // If he chooses to put different info on each of the 10 labels
 
             $j = 2;
