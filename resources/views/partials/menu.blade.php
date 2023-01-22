@@ -65,7 +65,7 @@
                     <i class="fa-fw fa fa-cart-plus nav-icon">
 
                     </i>
-                    Commandes
+                    Tickets
                 </a>
             </li>
         @endcan
